@@ -1,0 +1,3 @@
+title,status,rating,featured,favorite
+"Example Book","Currently Reading",8,true,true
+"Planned Book","Planned",0,false,false

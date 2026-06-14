@@ -1,0 +1,3 @@
+title,status,rating,favoriteCharacter,featured,favorite
+"Example Manga","Currently Reading",8,"Example Character",true,true
+"Planned Manga","Planned",0,,false,false

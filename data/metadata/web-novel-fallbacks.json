@@ -1,0 +1,88 @@
+{
+  "shadow-slave": {
+    "provider": "WebNovel original serialization record",
+    "matchedTitle": "Shadow Slave",
+    "sourceUrl": "https://www.webnovel.com/book/shadow-slave_22196546206090805",
+    "description": "Growing up in poverty, Sunny is chosen by the Nightmare Spell and becomes one of the Awakened. Transported into a ruined magical world, he must survive terrible creatures, rival Awakened, and the dangerous side effect of his new shadow powers.",
+    "releaseYear": 2022,
+    "creator": "Guiltythree",
+    "formatLabel": "Web Novel",
+    "sourceStatus": "Releasing"
+  },
+  "reverend-insanity": {
+    "provider": "Original Qidian serialization record",
+    "matchedTitle": "Reverend Insanity",
+    "sourceUrl": "https://www.qidian.com/book/2527417/",
+    "releaseYear": 2012,
+    "creator": "Gu Zhenren",
+    "formatLabel": "Web Novel",
+    "sourceStatus": "Cancelled"
+  },
+  "a-regressor-s-tale-of-cultivation": {
+    "provider": "Munpia original web novel",
+    "matchedTitle": "A Regressor's Tale of Cultivation",
+    "sourceUrl": "https://novel.munpia.com/346981",
+    "description": "After falling into a cultivation world with six coworkers, Seo Eun-hyun alone has no spiritual roots or special ability. He lives an ordinary mortal life until death sends him back to the beginning, revealing an endless cycle of regression.",
+    "releaseYear": 2023,
+    "creator": "Eomcheongnan",
+    "formatLabel": "Web Novel",
+    "sourceStatus": "Releasing"
+  },
+  "lord-of-the-mysteries": {
+    "provider": "Original Qidian serialization record",
+    "matchedTitle": "Lord of the Mysteries",
+    "sourceUrl": "https://www.qidian.com/book/1010868264/",
+    "releaseYear": 2018,
+    "creator": "Cuttlefish That Loves Diving",
+    "formatLabel": "Web Novel",
+    "sourceStatus": "Finished"
+  },
+  "kill-the-sun": {
+    "provider": "Amazon Books catalog cache; original serialization year unverified",
+    "matchedTitle": "Kill the Sun",
+    "sourceUrl": "https://www.amazon.com/Kill-Sun-Book-Warmaisach-_-ebook/dp/B0DB9D1Q3W",
+    "description": "In a post-apocalyptic world ruled by Specters, an amnesiac boy grows strong enough to pursue life as a Zephyx Extractor, only to discover that a forbidden Specter power already threatens his future.",
+    "creator": "Warmaisach",
+    "formatLabel": "Web Novel",
+    "sourceStatus": "Finished"
+  },
+  "omniscient-reader-s-viewpoint": {
+    "provider": "Original Munpia serialization record",
+    "matchedTitle": "Omniscient Reader's Viewpoint",
+    "sourceUrl": "https://novel.munpia.com/104753",
+    "description": "Kim Dokja is the sole reader to finish a long-running web novel. When its scenarios become reality, his knowledge of the original work becomes his only advantage in changing the ending.",
+    "releaseYear": 2018,
+    "creator": "Singsyong",
+    "formatLabel": "Web Novel",
+    "sourceStatus": "Finished"
+  },
+  "the-beginning-after-the-end": {
+    "provider": "Original Royal Road serialization record",
+    "matchedTitle": "The Beginning After the End",
+    "sourceUrl": "https://www.turtleme.com/tbate-novel",
+    "description": "King Grey is reborn as Arthur Leywin in a world of magic and monsters. With the memories of his former life intact, he tries to build a more meaningful future while confronting the dangers surrounding his new family.",
+    "releaseYear": 2015,
+    "creator": "TurtleMe",
+    "formatLabel": "Web Novel",
+    "sourceStatus": "Finished"
+  },
+  "renegade-immortal": {
+    "provider": "Original Qidian serialization record",
+    "matchedTitle": "Renegade Immortal",
+    "sourceUrl": "https://www.qidian.com/book/1264634/",
+    "releaseYear": 2009,
+    "creator": "Ergen",
+    "formatLabel": "Web Novel",
+    "sourceStatus": "Finished"
+  },
+  "mother-of-learning": {
+    "provider": "Original FictionPress serialization record",
+    "matchedTitle": "Mother of Learning",
+    "sourceUrl": "https://www.fictionpress.com/s/2961893/1/Mother-of-Learning",
+    "description": "Zorian Kazinski is a young mage trapped in a month-long time loop. Repeatedly reliving the same events, he uses each reset to improve his magic, investigate the loop, and uncover the conspiracy threatening his world.",
+    "releaseYear": 2011,
+    "creator": "Domagoj Kurmaic",
+    "formatLabel": "Web Novel",
+    "sourceStatus": "Finished"
+  }
+}
