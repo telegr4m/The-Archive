@@ -19,7 +19,7 @@ export default function ArchiveCover({
   const filename = image.split("/").at(-1) ?? image;
 
   return (
-    <div className="relative aspect-[3/4] overflow-hidden border-b border-white/10 bg-white/[0.04] lg:aspect-[4/5]">
+    <div className="relative aspect-[3/4] overflow-hidden border-b border-white/10 bg-white/[0.04] lg:aspect-[5/6]">
       {isMissing ? (
         <div
           className="flex h-full flex-col items-center justify-center gap-2 px-6 text-center"
@@ -40,7 +40,7 @@ export default function ArchiveCover({
             alt={`${title} cover`}
             priority={priority}
             loading={priority ? undefined : "lazy"}
-            sizes="(min-width: 1536px) 20vw, (min-width: 1280px) 25vw, (min-width: 1024px) 33vw, 50vw"
+            sizes="(min-width: 1280px) 20vw, (min-width: 1024px) 25vw, 50vw"
             className={`object-cover object-top transition-[opacity,transform] duration-300 ease-out group-hover:scale-105 ${
               isLoaded ? "opacity-100" : "opacity-0"
             }`}

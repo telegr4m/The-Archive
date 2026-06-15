@@ -4,16 +4,16 @@ import RandomStoryButton from "./RandomStoryButton";
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-[90svh] overflow-hidden bg-black px-5 py-20 text-white sm:min-h-screen sm:px-8 sm:py-28 md:py-32 lg:py-24">
+    <section className="relative min-h-[90svh] overflow-hidden bg-black px-5 py-20 text-white sm:min-h-screen sm:px-8 sm:py-28 md:py-32 lg:py-20">
       <ArchiveTree />
 
-      <div className="relative z-10 mx-auto max-w-[1560px] text-left">
-        <div className="max-w-3xl lg:w-[52%] lg:-translate-x-4 lg:px-8 xl:-translate-x-8 xl:px-10">
+      <div className="relative z-10 mx-auto max-w-[1320px] text-left">
+        <div className="max-w-3xl lg:w-[50%] lg:-translate-x-3 lg:px-8 xl:-translate-x-5 xl:px-8">
           <p className="mb-5 text-sm uppercase tracking-[0.4em] text-pink-200">
             Welcome to
           </p>
 
-          <h1 className="mb-6 text-5xl font-bold leading-none sm:text-6xl md:text-8xl lg:text-7xl">
+          <h1 className="mb-6 text-5xl font-bold leading-none sm:text-6xl md:text-7xl lg:text-6xl">
             The Archive
           </h1>
 
@@ -36,10 +36,10 @@ export default function HeroSection() {
             ].map(([number, label]) => (
               <div
                 key={label}
-                className="rounded-2xl border border-white/10 bg-black/40 p-4 backdrop-blur sm:p-5 lg:p-4"
+                className="rounded-2xl border border-white/10 bg-black/40 p-4 backdrop-blur sm:p-5 lg:p-3.5"
               >
-                <h2 className="text-3xl font-bold">{number}</h2>
-                <p className="text-gray-400">{label}</p>
+                <h2 className="text-3xl font-bold lg:text-2xl">{number}</h2>
+                <p className="text-gray-400 lg:text-sm">{label}</p>
               </div>
             ))}
           </div>

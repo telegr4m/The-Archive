@@ -7,27 +7,37 @@ import FavoriteTiltCard from "./FavoriteTiltCard";
 import FavoriteVaultImage from "./FavoriteVaultImage";
 import { getArchiveCardDescription } from "../data/archivePresentation";
 import ArchiveRating from "./ArchiveRating";
+import { getFavoriteArchiveItems } from "../data/favorites";
 
-const favorites = mixFavorites(archiveItems.filter((item) => item.favorite));
+const favorites = mixFavorites(getFavoriteArchiveItems(archiveItems)).slice(0, 8);
 
 export default function FavoritesVault() {
   return (
-    <section className="relative overflow-hidden bg-black px-5 py-20 text-white sm:px-6 md:py-24 lg:py-20">
-      <div className="relative z-10 mx-auto max-w-6xl">
+    <section className="relative overflow-hidden bg-black px-5 py-20 text-white sm:px-6 md:py-24 lg:py-16">
+      <div className="relative z-10 mx-auto max-w-5xl">
         <p className="uppercase tracking-[0.3em] text-sm text-purple-300 mb-4">
           Favorites Vault
         </p>
 
-        <h2 className="mb-6 text-3xl font-bold sm:text-4xl md:text-6xl lg:text-5xl">
+        <h2 className="mb-6 text-3xl font-bold sm:text-4xl md:text-5xl lg:text-4xl">
           The entries that stay at the top.
         </h2>
 
-        <p className="mb-8 max-w-2xl text-base text-gray-300 sm:mb-12 sm:text-lg">
-          A special section for the entries I would always recommend, revisit,
-          or remember.
-        </p>
+        <div className="mb-8 flex flex-col gap-5 sm:mb-12 sm:flex-row sm:items-end sm:justify-between lg:mb-9">
+          <p className="max-w-2xl text-base text-gray-300 sm:text-lg lg:text-base">
+            A special section for the entries I would always recommend, revisit,
+            or remember.
+          </p>
+          <Link
+            href="/favorites"
+            scroll={true}
+            className="inline-flex min-h-11 w-fit items-center justify-center rounded-full border border-white/15 px-5 py-2.5 text-xs font-medium uppercase tracking-[0.16em] text-gray-300 transition-colors duration-300 hover:border-white/35 hover:text-white"
+          >
+            View All Favorites
+          </Link>
+        </div>
 
-        <div className="grid grid-cols-2 gap-2.5 sm:gap-6 md:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+        <div className="grid grid-cols-2 gap-2.5 sm:gap-6 md:grid-cols-2 lg:grid-cols-4 lg:gap-4">
           {favorites.map((item) => (
             <Link
               key={item.id}

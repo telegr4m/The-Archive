@@ -11,14 +11,14 @@ export default function RecentlyAdded() {
   const recentItems = getRecentlyAddedItems(archiveItems).slice(0, 5);
 
   return (
-    <section className="bg-black px-5 py-20 text-white sm:px-6 md:px-8 md:py-28 lg:py-20">
-      <div className="mx-auto max-w-6xl">
+    <section className="bg-black px-5 py-20 text-white sm:px-6 md:px-8 md:py-28 lg:py-16">
+      <div className="mx-auto max-w-5xl">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.35em] text-gray-500">
               Recently Added
             </p>
-            <h2 className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl">
+            <h2 className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl lg:text-4xl">
               New arrivals in the archive.
             </h2>
           </div>
@@ -30,7 +30,7 @@ export default function RecentlyAdded() {
             View All Recently Added
           </Link>
         </div>
-        <div className="mt-8 grid grid-cols-2 gap-2.5 sm:mt-10 sm:gap-6 md:grid-cols-3 lg:gap-5 xl:grid-cols-4 2xl:grid-cols-5">
+        <div className="mt-8 grid grid-cols-2 gap-2.5 sm:mt-10 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 lg:gap-4 xl:grid-cols-5">
           {recentItems.map((item) => (
             <Link
               key={item.id}

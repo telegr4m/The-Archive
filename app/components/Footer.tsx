@@ -54,9 +54,9 @@ export default function Footer() {
   return (
     <footer
       ref={footerRef}
-      className="mt-auto border-t border-white/10 bg-black px-5 py-10 text-white sm:px-6 sm:py-12 md:px-10 md:py-16 lg:py-12"
+      className="mt-auto border-t border-white/10 bg-black px-5 py-10 text-white sm:px-6 sm:py-12 md:px-10 md:py-16 lg:py-10"
     >
-      <div className="footer-content mx-auto max-w-6xl">
+      <div className="footer-content mx-auto max-w-5xl">
         <div className="grid gap-8 sm:gap-10 lg:grid-cols-[minmax(0,1fr)_auto_auto] lg:items-start">
           <div className="max-w-md">
             <Link
@@ -72,7 +72,7 @@ export default function Footer() {
           </div>
 
           <nav
-            className="grid w-full grid-cols-1 gap-x-8 gap-y-3 text-left text-sm sm:max-w-lg sm:grid-cols-[repeat(3,minmax(0,1fr))] lg:w-[30rem]"
+            className="grid w-full grid-cols-1 gap-x-8 gap-y-3 text-left text-sm sm:max-w-lg sm:grid-cols-[repeat(3,minmax(0,1fr))] lg:w-[27rem]"
             aria-label="Footer navigation"
           >
             {links.map((link) => (

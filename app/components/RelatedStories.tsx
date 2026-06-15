@@ -21,7 +21,7 @@ export default function RelatedStories({ item }: RelatedStoriesProps) {
 
   return (
     <section
-      className="mt-16 border-t border-white/10 pt-12 md:mt-24 md:pt-16 lg:mt-20 lg:pt-12"
+      className="mt-16 border-t border-white/10 pt-12 md:mt-24 md:pt-16 lg:mt-16 lg:pt-10"
       aria-labelledby="related-stories-title"
     >
       <div className="related-stories-heading">
@@ -30,13 +30,13 @@ export default function RelatedStories({ item }: RelatedStoriesProps) {
         </p>
         <h2
           id="related-stories-title"
-          className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl"
+          className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl lg:text-3xl"
         >
           Related Entries
         </h2>
       </div>
 
-      <div className="mt-6 grid grid-cols-2 gap-2.5 sm:mt-8 sm:gap-5 md:grid-cols-3 lg:grid-cols-4 lg:gap-4 xl:grid-cols-5">
+      <div className="mt-6 grid grid-cols-2 gap-2.5 sm:mt-8 sm:gap-5 md:grid-cols-3 lg:grid-cols-4 lg:gap-3 xl:grid-cols-5">
         {relatedItems.map((relatedItem) => (
           <Link
             key={relatedItem.id}

@@ -82,7 +82,7 @@ export default function ArchiveBrowser({
 
   return (
     <section aria-label={`${title} archive browser`}>
-      <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(400px,0.8fr)] lg:gap-8 xl:gap-10">
+      <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(360px,0.72fr)] lg:gap-7">
         {header}
 
         <div className="rounded-2xl border border-white/10 bg-white/[0.025] p-4">
@@ -168,10 +168,10 @@ export default function ArchiveBrowser({
         </div>
       </div>
 
-      {stats && <div className="mt-8 sm:mt-12">{stats}</div>}
+      {stats && <div className="mt-8 sm:mt-12 lg:mt-9">{stats}</div>}
 
       <div
-        className="mt-8 grid grid-cols-2 gap-2.5 sm:mt-12 sm:gap-6 md:grid-cols-3 lg:gap-5 xl:grid-cols-4 2xl:grid-cols-5"
+        className="mt-8 grid grid-cols-2 gap-2.5 sm:mt-12 sm:gap-6 md:grid-cols-3 lg:mt-9 lg:grid-cols-4 lg:gap-4 xl:grid-cols-5"
       >
         {visibleItems.map((item, index) => (
           <Link

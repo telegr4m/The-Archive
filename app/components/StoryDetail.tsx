@@ -111,9 +111,9 @@ export default function StoryDetail({ item }: StoryDetailProps) {
   return (
     <main
       ref={pageRef}
-      className="min-h-screen bg-black px-5 pb-20 pt-24 text-white opacity-0 sm:px-6 md:px-10 md:pb-24 md:pt-32 lg:pb-20 lg:pt-24"
+      className="min-h-screen bg-black px-5 pb-20 pt-24 text-white opacity-0 sm:px-6 md:px-10 md:pb-24 md:pt-32 lg:pb-16 lg:pt-20"
     >
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-5xl">
         <Breadcrumb
           items={[
             { label: "Home", href: "/" },
@@ -122,9 +122,9 @@ export default function StoryDetail({ item }: StoryDetailProps) {
           ]}
         />
 
-        <section className="mt-8 grid items-start gap-10 lg:mt-8 lg:grid-cols-[minmax(320px,0.78fr)_minmax(0,1.35fr)] lg:gap-14">
-          <div ref={coverRef} className="opacity-0 lg:sticky lg:top-28">
-            <div className="relative mx-auto aspect-[3/4] w-full max-w-xl overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04] lg:max-w-md">
+        <section className="mt-8 grid items-start gap-10 lg:mt-7 lg:grid-cols-[minmax(280px,0.72fr)_minmax(0,1.35fr)] lg:gap-10">
+          <div ref={coverRef} className="opacity-0 lg:sticky lg:top-24">
+            <div className="relative mx-auto aspect-[3/4] w-full max-w-xl overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04] md:max-w-md lg:max-w-sm">
               {isMissing ? (
                 <div
                   className="flex h-full flex-col items-center justify-center gap-3 px-8 text-center"
@@ -169,7 +169,7 @@ export default function StoryDetail({ item }: StoryDetailProps) {
             <p className="text-xs font-medium uppercase tracking-[0.35em] text-gray-500">
               {item.category} Entry
             </p>
-            <h1 className="mt-5 break-words text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl">
+            <h1 className="mt-5 break-words text-4xl font-bold tracking-tight sm:text-5xl lg:text-5xl">
               {item.title}
             </h1>
             {bookAuthor && (
@@ -178,7 +178,7 @@ export default function StoryDetail({ item }: StoryDetailProps) {
               </p>
             )}
 
-            <div className="mt-7 flex flex-wrap gap-3">
+            <div className="mt-7 flex flex-wrap gap-3 lg:mt-6">
               {item.rating > 0 && (
                 <Highlight label="Rating">
                   <ArchiveRating rating={item.rating} />
@@ -197,7 +197,7 @@ export default function StoryDetail({ item }: StoryDetailProps) {
               {getArchiveDetailDescription(item)}
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-2">
+            <div className="mt-8 flex flex-wrap gap-2 lg:mt-6">
               {item.genres.map((genre) => (
                 <span
                   key={genre}
@@ -209,7 +209,7 @@ export default function StoryDetail({ item }: StoryDetailProps) {
             </div>
 
             {metadataItems.length > 0 && (
-              <dl className="mt-8 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-2">
+              <dl className="mt-8 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:mt-6">
                 {metadataItems.map((metadata, index) => (
                   <DetailStat
                     key={metadata.label}
@@ -264,7 +264,7 @@ function DetailStat({
   spanFullWidth: boolean;
 }) {
   return (
-    <div className={`bg-black p-5 ${spanFullWidth ? "sm:col-span-2" : ""}`}>
+    <div className={`bg-black p-5 lg:p-4 ${spanFullWidth ? "sm:col-span-2" : ""}`}>
       <dt className="text-[0.65rem] font-medium uppercase tracking-[0.2em] text-gray-500">
         {label}
       </dt>

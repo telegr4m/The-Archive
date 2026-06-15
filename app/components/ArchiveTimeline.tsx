@@ -59,13 +59,13 @@ export default function ArchiveTimeline() {
   return (
     <section
       ref={sectionRef}
-      className="overflow-hidden bg-black px-5 py-24 text-white sm:px-6 md:px-8 md:py-32 lg:py-24"
+      className="overflow-hidden bg-black px-5 py-24 text-white sm:px-6 md:px-8 md:py-32 lg:py-18"
     >
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-5xl">
         <p className="text-sm uppercase tracking-[0.4em] text-gray-400">
           Archive Timeline
         </p>
-        <h2 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl md:text-7xl lg:text-6xl">
+        <h2 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-5xl">
           The journey through media.
         </h2>
         <p className="mt-6 max-w-2xl text-lg leading-relaxed text-gray-400 lg:text-base">
@@ -73,7 +73,7 @@ export default function ArchiveTimeline() {
           time.
         </p>
 
-        <div className="timeline-track relative mt-12 sm:mt-20">
+        <div className="timeline-track relative mt-12 sm:mt-20 lg:mt-14">
           <div className="absolute bottom-0 left-3 top-0 w-px bg-white/10 md:left-1/2 md:-translate-x-1/2">
             <div className="timeline-line h-full w-full origin-top bg-white/60" />
           </div>
@@ -86,7 +86,7 @@ export default function ArchiveTimeline() {
                 <article
                   key={entry.year}
                   data-side={isLeft ? "left" : "right"}
-                  className={`timeline-entry relative grid pl-12 md:min-h-40 md:grid-cols-2 md:pl-0 ${
+                  className={`timeline-entry relative grid pl-12 md:min-h-40 md:grid-cols-2 md:pl-0 lg:min-h-32 ${
                     isLeft ? "" : "md:text-left"
                   }`}
                 >

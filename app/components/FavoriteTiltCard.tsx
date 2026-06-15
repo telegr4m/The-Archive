@@ -40,7 +40,7 @@ export default function FavoriteTiltCard({
     >
       <div
         ref={tiltRef}
-        className="relative min-h-[260px] overflow-hidden rounded-2xl border border-white/10 bg-black transition-[transform,border-color] duration-300 ease-out group-hover:border-white/30 lg:min-h-[440px] lg:rounded-3xl"
+        className="relative min-h-[260px] overflow-hidden rounded-2xl border border-white/10 bg-black transition-[transform,border-color] duration-300 ease-out group-hover:border-white/30 lg:min-h-[380px] lg:rounded-3xl"
         style={{
           transform: RESTING_TRANSFORM,
           transformStyle: "preserve-3d",

@@ -8,10 +8,6 @@ import {
   type ArchiveItem,
 } from "../data/archiveItems";
 import { getArchiveCardDescription } from "../data/archivePresentation";
-import {
-  formatArchiveAddedDate,
-  getRecentlyAddedItems,
-} from "../data/recentlyAdded";
 import ArchiveCover from "./ArchiveCover";
 import ArchiveRating from "./ArchiveRating";
 import Breadcrumb from "./Breadcrumb";
@@ -30,21 +26,18 @@ const categoryFilters: Array<{
   { label: "Books", value: "Book" },
 ];
 
-type RecentlyAddedBrowserProps = {
+type FavoritesBrowserProps = {
   items: ArchiveItem[];
 };
 
-export default function RecentlyAddedBrowser({
-  items,
-}: RecentlyAddedBrowserProps) {
+export default function FavoritesBrowser({ items }: FavoritesBrowserProps) {
   const [category, setCategory] = useState<CategoryFilter>("All");
-  const sortedItems = useMemo(() => getRecentlyAddedItems(items), [items]);
   const visibleItems = useMemo(
     () =>
       category === "All"
-        ? sortedItems
-        : sortedItems.filter((item) => item.category === category),
-    [category, sortedItems]
+        ? items
+        : items.filter((item) => item.category === category),
+    [category, items]
   );
 
   return (
@@ -53,24 +46,24 @@ export default function RecentlyAddedBrowser({
         <Breadcrumb
           items={[
             { label: "Home", href: "/" },
-            { label: "Recently Added" },
+            { label: "Favorites" },
           ]}
         />
 
         <header className="mt-10 max-w-3xl">
           <p className="text-xs font-medium uppercase tracking-[0.35em] text-gray-500">
-            Archive Activity
+            Favorites Vault
           </p>
           <h1 className="mt-4 break-words text-4xl font-bold tracking-tight sm:text-6xl md:text-7xl lg:text-6xl">
-            Recently Added
+            Favorite Entries
           </h1>
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-gray-400 sm:text-lg">
-            Every archive entry in the order it joined the collection, newest
-            first.
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-gray-400 sm:text-lg lg:text-base">
+            The complete list of entries marked as favorites, sorted by rating,
+            category, and title.
           </p>
         </header>
 
-        <section className="mt-8 sm:mt-10" aria-label="Recently added filters">
+        <section className="mt-8 sm:mt-10" aria-label="Favorite filters">
           <div className="flex flex-wrap gap-2">
             {categoryFilters.map((filter) => {
               const isActive = category === filter.value;
@@ -93,13 +86,13 @@ export default function RecentlyAddedBrowser({
             })}
           </div>
           <p className="mt-4 text-sm text-gray-500" aria-live="polite">
-            Showing {visibleItems.length} of {items.length} entries
+            Showing {visibleItems.length} of {items.length} favorites
           </p>
         </section>
 
         <section
           className="mt-8 grid grid-cols-2 gap-2.5 sm:mt-10 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 lg:gap-4 xl:grid-cols-5"
-          aria-label="Recently added archive entries"
+          aria-label="Favorite archive entries"
         >
           {visibleItems.map((item, index) => (
             <Link
@@ -142,9 +135,6 @@ export default function RecentlyAddedBrowser({
                   <p className="mt-3 hidden min-h-6 overflow-hidden text-ellipsis text-sm leading-6 text-gray-400 lg:mt-4 lg:line-clamp-2 lg:min-h-12 lg:block">
                     {getArchiveCardDescription(item)}
                   </p>
-                  <p className="mt-3 hidden text-xs text-gray-500 lg:block">
-                    Added {formatArchiveAddedDate(item)}
-                  </p>
                   <span className="mt-auto hidden items-center gap-2 pt-3 text-xs font-medium uppercase tracking-[0.16em] text-gray-500 transition-colors duration-300 group-hover:text-white lg:flex lg:pt-5">
                     View Details <span aria-hidden="true">-&gt;</span>
                   </span>
@@ -156,9 +146,9 @@ export default function RecentlyAddedBrowser({
 
         {visibleItems.length === 0 && (
           <div className="mt-10 rounded-3xl border border-dashed border-white/15 px-6 py-20 text-center">
-            <p className="text-lg font-medium">No recently added entries found</p>
+            <p className="text-lg font-medium">No favorites found</p>
             <p className="mt-2 text-sm text-gray-500">
-              Choose another category to see more of the archive.
+              Choose another category to see more favorite entries.
             </p>
           </div>
         )}

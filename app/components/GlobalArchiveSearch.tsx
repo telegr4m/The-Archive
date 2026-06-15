@@ -87,16 +87,16 @@ export default function GlobalArchiveSearch() {
     "h-11 w-full rounded-xl border border-white/10 bg-black px-4 text-sm text-white outline-none transition-colors duration-300 placeholder:text-gray-600 hover:border-white/20 focus:border-white/40";
 
   return (
-    <main className="min-h-screen bg-black px-5 pb-20 pt-24 text-white sm:px-6 md:px-10 md:pb-24 md:pt-32 lg:pb-20 lg:pt-24">
-      <div className="mx-auto max-w-[1560px]">
+    <main className="min-h-screen bg-black px-5 pb-20 pt-24 text-white sm:px-6 md:px-10 md:pb-24 md:pt-32 lg:pb-16 lg:pt-20">
+      <div className="mx-auto max-w-[1320px]">
         <div ref={headingRef} className="max-w-4xl opacity-0">
           <p className="text-xs font-medium uppercase tracking-[0.35em] text-gray-500">
             Global Archive
           </p>
-          <h1 className="mt-4 break-words text-4xl font-bold tracking-tight sm:text-6xl md:text-8xl lg:text-7xl">
+          <h1 className="mt-4 break-words text-4xl font-bold tracking-tight sm:text-6xl md:text-7xl lg:text-6xl">
             Search the Archive
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-gray-400">
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-gray-400 lg:mt-5 lg:text-base">
             Search every category, genre, status, and description in one place.
           </p>
         </div>
@@ -200,7 +200,7 @@ export default function GlobalArchiveSearch() {
         </section>
 
         <section
-          className="mt-8 grid grid-cols-2 gap-2.5 sm:mt-10 sm:gap-6 md:grid-cols-3 lg:gap-5 xl:grid-cols-4 2xl:grid-cols-5"
+          className="mt-8 grid grid-cols-2 gap-2.5 sm:mt-10 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 lg:gap-4 xl:grid-cols-5"
           aria-label="Global archive search results"
         >
           {results.map((item, index) => (
