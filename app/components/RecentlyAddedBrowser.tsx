@@ -98,7 +98,7 @@ export default function RecentlyAddedBrowser({
         </section>
 
         <section
-          className="mt-8 grid grid-cols-1 gap-4 sm:mt-10 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-5 xl:grid-cols-4 2xl:grid-cols-5"
+          className="mt-8 grid grid-cols-2 gap-2.5 sm:mt-10 sm:gap-6 md:grid-cols-3 lg:gap-5 xl:grid-cols-4 2xl:grid-cols-5"
           aria-label="Recently added archive entries"
         >
           {visibleItems.map((item, index) => (
@@ -107,7 +107,7 @@ export default function RecentlyAddedBrowser({
               href={getArchiveItemHref(item)}
               scroll={true}
               aria-label={`View details for ${item.title}`}
-              className="group h-full overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] transition-all duration-300 hover:-translate-y-1 hover:border-white/25 hover:bg-white/[0.06]"
+              className="group h-full overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] transition-all duration-300 hover:-translate-y-1 hover:border-white/25 hover:bg-white/[0.06] lg:rounded-3xl"
             >
               <article className="flex h-full flex-col">
                 <ArchiveCover
@@ -115,18 +115,21 @@ export default function RecentlyAddedBrowser({
                   title={item.title}
                   priority={index === 0}
                 />
-                <div className="flex flex-1 flex-col p-4 sm:p-5 lg:p-4">
-                  <p className="text-[0.65rem] font-medium uppercase tracking-[0.2em] text-gray-500">
+                <div className="flex flex-1 flex-col p-3 lg:p-4">
+                  <p className="line-clamp-1 text-[0.58rem] font-medium uppercase tracking-[0.14em] text-gray-500 lg:text-[0.65rem] lg:tracking-[0.2em]">
                     {item.category}
                   </p>
-                  <div className="mt-2 flex items-center justify-between gap-3 text-[0.65rem] font-medium uppercase tracking-[0.14em] text-gray-400">
-                    <span>{item.status}</span>
-                    <ArchiveRating rating={item.rating} />
+                  <div className="mt-1 flex items-center justify-between gap-2 text-[0.56rem] font-medium uppercase tracking-[0.1em] text-gray-400 lg:mt-2 lg:gap-3 lg:text-[0.65rem] lg:tracking-[0.14em]">
+                    <span className="min-w-0 line-clamp-1">{item.status}</span>
+                    <ArchiveRating
+                      rating={item.rating}
+                      className="hidden shrink-0 text-white lg:inline"
+                    />
                   </div>
-                  <h2 className="mt-2 line-clamp-2 min-h-12 overflow-hidden text-ellipsis text-lg font-semibold tracking-tight sm:mt-3 sm:min-h-14 sm:text-xl lg:min-h-12 lg:text-lg">
+                  <h2 className="mt-2 line-clamp-2 min-h-10 overflow-hidden text-ellipsis text-sm font-semibold leading-5 tracking-tight lg:mt-3 lg:min-h-12 lg:text-lg lg:leading-normal">
                     {item.title}
                   </h2>
-                  <div className="mt-2 flex h-7 flex-wrap gap-1.5 overflow-hidden sm:mt-3">
+                  <div className="mt-2 hidden h-7 flex-wrap gap-1.5 overflow-hidden lg:mt-3 lg:flex">
                     {item.genres.slice(0, 3).map((genre) => (
                       <span
                         key={genre}
@@ -136,13 +139,13 @@ export default function RecentlyAddedBrowser({
                       </span>
                     ))}
                   </div>
-                  <p className="mt-3 line-clamp-1 min-h-6 overflow-hidden text-ellipsis text-sm leading-6 text-gray-400 sm:mt-4 sm:line-clamp-2 sm:min-h-12">
+                  <p className="mt-3 hidden min-h-6 overflow-hidden text-ellipsis text-sm leading-6 text-gray-400 lg:mt-4 lg:line-clamp-2 lg:min-h-12 lg:block">
                     {getArchiveCardDescription(item)}
                   </p>
-                  <p className="mt-3 text-xs text-gray-500">
+                  <p className="mt-3 hidden text-xs text-gray-500 lg:block">
                     Added {formatArchiveAddedDate(item)}
                   </p>
-                  <span className="mt-auto flex items-center gap-2 pt-3 text-xs font-medium uppercase tracking-[0.16em] text-gray-500 transition-colors duration-300 group-hover:text-white sm:pt-5">
+                  <span className="mt-auto hidden items-center gap-2 pt-3 text-xs font-medium uppercase tracking-[0.16em] text-gray-500 transition-colors duration-300 group-hover:text-white lg:flex lg:pt-5">
                     View Details <span aria-hidden="true">-&gt;</span>
                   </span>
                 </div>

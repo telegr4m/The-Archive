@@ -29,6 +29,7 @@ import {
   getMetadataFingerprint,
   getWebNovelMetadataStatus,
 } from "../scripts/lib/metadataRetry";
+import { findBrokenArchiveImagePaths } from "../scripts/validateArchiveImages";
 
 test("slug generation normalizes titles consistently", () => {
   assert.equal(
@@ -182,6 +183,18 @@ test("cover cleanup removes only unique slug-matched managed images", () => {
       source
     ).action,
     "preserve"
+  );
+});
+
+test("archive image validation ignores missing-cover state and flags broken paths", () => {
+  const item = archiveItems[0];
+
+  assert.deepEqual(findBrokenArchiveImagePaths([{ ...item, image: "" }]), []);
+  assert.equal(
+    findBrokenArchiveImagePaths([
+      { ...item, image: "/images/does-not-exist.jpg" },
+    ]).length,
+    1
   );
 });
 

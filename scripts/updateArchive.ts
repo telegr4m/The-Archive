@@ -59,6 +59,11 @@ const tasks: ArchiveTask[] = [
     successMessage: "Metadata complete",
     script: "fetchMetadata.ts",
   },
+  {
+    label: "Validating Image Paths",
+    successMessage: "Image paths verified",
+    script: "validateArchiveImages.ts",
+  },
 ];
 
 async function main() {

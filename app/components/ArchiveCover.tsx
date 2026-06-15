@@ -19,7 +19,7 @@ export default function ArchiveCover({
   const filename = image.split("/").at(-1) ?? image;
 
   return (
-    <div className="relative aspect-[16/10] overflow-hidden border-b border-white/10 bg-white/[0.04] sm:aspect-[3/4] lg:aspect-[4/5]">
+    <div className="relative aspect-[3/4] overflow-hidden border-b border-white/10 bg-white/[0.04] lg:aspect-[4/5]">
       {isMissing ? (
         <div
           className="flex h-full flex-col items-center justify-center gap-2 px-6 text-center"
@@ -40,8 +40,8 @@ export default function ArchiveCover({
             alt={`${title} cover`}
             priority={priority}
             loading={priority ? undefined : "lazy"}
-            sizes="(min-width: 1536px) 20vw, (min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-            className={`object-cover object-top transition-[opacity,transform] duration-700 ease-out group-hover:scale-105 ${
+            sizes="(min-width: 1536px) 20vw, (min-width: 1280px) 25vw, (min-width: 1024px) 33vw, 50vw"
+            className={`object-cover object-top transition-[opacity,transform] duration-300 ease-out group-hover:scale-105 ${
               isLoaded ? "opacity-100" : "opacity-0"
             }`}
             onLoad={() => setIsLoaded(true)}
@@ -58,7 +58,7 @@ function CoverLoadingState({ isLoaded }: { isLoaded: boolean }) {
   return (
     <div
       aria-hidden="true"
-      className={`absolute inset-0 bg-neutral-950 transition-opacity duration-500 ${
+      className={`absolute inset-0 bg-neutral-950 transition-opacity duration-300 ${
         isLoaded ? "opacity-0" : "animate-pulse opacity-100"
       }`}
     />

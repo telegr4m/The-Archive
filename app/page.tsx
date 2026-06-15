@@ -5,6 +5,7 @@ import ArchiveTimeline from "./components/ArchiveTimeline";
 import FeaturedStory from "./components/FeaturedStory";
 import FavoritesVault from "./components/FavoritesVault";
 import RecentlyAdded from "./components/RecentlyAdded";
+import { archiveItems } from "./data/archiveItems";
 
 export default function Home() {
   return (
@@ -15,7 +16,9 @@ export default function Home() {
 
       <ArchiveHeatmap />
 
-      <FeaturedStory />
+      <FeaturedStory
+        featuredItems={archiveItems.filter((item) => item.featured)}
+      />
 
       <ArchiveTimeline />
 

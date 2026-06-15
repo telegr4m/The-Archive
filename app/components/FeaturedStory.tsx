@@ -2,25 +2,25 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
-  archiveItems,
   getArchiveItemHref,
+  type ArchiveItem,
 } from "../data/archiveItems";
 import { getArchiveCardDescription } from "../data/archivePresentation";
 
 const ROTATION_INTERVAL = 5000;
 
-export default function FeaturedStory() {
+type FeaturedStoryProps = {
+  featuredItems: ArchiveItem[];
+};
+
+export default function FeaturedStory({ featuredItems }: FeaturedStoryProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const featuredItems = useMemo(
-    () => archiveItems.filter((item) => item.featured),
-    []
-  );
   const [activeIndex, setActiveIndex] = useState(0);
   const [missingImage, setMissingImage] = useState<string | null>(null);
   const [loadedImage, setLoadedImage] = useState<string | null>(null);

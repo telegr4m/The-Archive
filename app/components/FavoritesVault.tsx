@@ -27,7 +27,7 @@ export default function FavoritesVault() {
           or remember.
         </p>
 
-        <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+        <div className="grid grid-cols-2 gap-2.5 sm:gap-6 md:grid-cols-2 lg:grid-cols-4 lg:gap-5">
           {favorites.map((item) => (
             <Link
               key={item.id}
@@ -39,23 +39,23 @@ export default function FavoritesVault() {
               <FavoriteTiltCard>
                 <FavoriteVaultImage image={item.image} title={item.title} />
 
-                <div className="absolute inset-x-0 bottom-0 bg-black/90 p-5 sm:p-6 lg:p-5">
-                  <div className="mb-3 flex items-center justify-between gap-3 text-xs uppercase tracking-[0.3em] text-purple-300">
+                <div className="absolute inset-x-0 bottom-0 bg-black/90 p-3 lg:p-5">
+                  <div className="mb-2 flex items-center justify-between gap-2 text-[0.55rem] uppercase tracking-[0.12em] text-purple-300 lg:mb-3 lg:gap-3 lg:text-xs lg:tracking-[0.3em]">
                     <span>{item.category}</span>
                     <ArchiveRating
                       rating={item.rating}
-                      className="tracking-[0.16em] text-white"
+                      className="hidden tracking-[0.16em] text-white lg:inline"
                     />
                   </div>
 
-                  <h3 className="mb-3 line-clamp-2 text-2xl font-bold sm:text-3xl lg:text-2xl">
+                  <h3 className="line-clamp-2 text-sm font-bold leading-5 lg:mb-3 lg:text-2xl lg:leading-normal">
                     {item.title}
                   </h3>
 
-                  <p className="line-clamp-2 min-h-10 overflow-hidden text-ellipsis text-sm text-gray-300">
+                  <p className="hidden min-h-10 overflow-hidden text-ellipsis text-sm text-gray-300 lg:line-clamp-2">
                     {getArchiveCardDescription(item)}
                   </p>
-                  <span className="mt-4 flex items-center gap-2 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-gray-400 transition-colors duration-300 group-hover:text-white">
+                  <span className="mt-4 hidden items-center gap-2 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-gray-400 transition-colors duration-300 group-hover:text-white lg:flex">
                     View Details <span aria-hidden="true">-&gt;</span>
                   </span>
                 </div>

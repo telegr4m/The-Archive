@@ -1,7 +1,4 @@
-"use client";
-
 import Link from "next/link";
-import { useMemo } from "react";
 import { archiveItems, getArchiveItemHref } from "../data/archiveItems";
 import {
   formatArchiveAddedDate,
@@ -11,10 +8,7 @@ import ArchiveCover from "./ArchiveCover";
 import ArchiveRating from "./ArchiveRating";
 
 export default function RecentlyAdded() {
-  const recentItems = useMemo(
-    () => getRecentlyAddedItems(archiveItems).slice(0, 5),
-    []
-  );
+  const recentItems = getRecentlyAddedItems(archiveItems).slice(0, 5);
 
   return (
     <section className="bg-black px-5 py-20 text-white sm:px-6 md:px-8 md:py-28 lg:py-20">
@@ -36,27 +30,30 @@ export default function RecentlyAdded() {
             View All Recently Added
           </Link>
         </div>
-        <div className="mt-8 grid gap-4 sm:mt-10 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-5 xl:grid-cols-4 2xl:grid-cols-5">
+        <div className="mt-8 grid grid-cols-2 gap-2.5 sm:mt-10 sm:gap-6 md:grid-cols-3 lg:gap-5 xl:grid-cols-4 2xl:grid-cols-5">
           {recentItems.map((item) => (
             <Link
               key={item.id}
               href={getArchiveItemHref(item)}
               scroll={true}
-              className="recently-added-card group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.025] transition-all duration-300 hover:-translate-y-1 hover:border-white/25 hover:bg-white/[0.05]"
+              className="recently-added-card group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.025] transition-all duration-300 hover:-translate-y-1 hover:border-white/25 hover:bg-white/[0.05] lg:rounded-3xl"
             >
               <ArchiveCover image={item.image} title={item.title} />
-              <div className="flex flex-1 flex-col p-4 sm:p-5">
-                <div className="flex items-center justify-between gap-3 text-[0.65rem] uppercase tracking-[0.18em] text-gray-500">
+              <div className="flex flex-1 flex-col p-3 lg:p-5">
+                <div className="flex items-center justify-between gap-2 text-[0.56rem] uppercase tracking-[0.1em] text-gray-500 lg:gap-3 lg:text-[0.65rem] lg:tracking-[0.18em]">
                   <span>{item.category}</span>
-                  <ArchiveRating rating={item.rating} />
+                  <ArchiveRating
+                    rating={item.rating}
+                    className="hidden shrink-0 text-white lg:inline"
+                  />
                 </div>
-                <h3 className="mt-3 line-clamp-2 min-h-12 overflow-hidden text-ellipsis text-lg font-semibold tracking-tight">
+                <h3 className="mt-2 line-clamp-2 min-h-10 overflow-hidden text-ellipsis text-sm font-semibold leading-5 tracking-tight lg:mt-3 lg:min-h-12 lg:text-lg lg:leading-normal">
                   {item.title}
                 </h3>
-                <p className="mt-3 text-xs text-gray-500">
+                <p className="mt-3 hidden text-xs text-gray-500 lg:block">
                   Added {formatArchiveAddedDate(item)}
                 </p>
-                <span className="mt-auto flex items-center gap-2 pt-3 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-gray-500 transition-colors duration-300 group-hover:text-white sm:pt-5">
+                <span className="mt-auto hidden items-center gap-2 pt-3 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-gray-500 transition-colors duration-300 group-hover:text-white lg:flex lg:pt-5">
                   View Details <span aria-hidden="true">-&gt;</span>
                 </span>
               </div>
