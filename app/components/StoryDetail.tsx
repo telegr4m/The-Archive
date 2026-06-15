@@ -20,7 +20,10 @@ export default function StoryDetail({ item }: StoryDetailProps) {
   const pageRef = useRef<HTMLElement>(null);
   const coverRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const [isMissing, setIsMissing] = useState(() => !item.image);
+  const [missingImage, setMissingImage] = useState<string | null>(null);
+  const [loadedImage, setLoadedImage] = useState<string | null>(null);
+  const isMissing = !item.image || missingImage === item.image;
+  const isLoaded = loadedImage === item.image;
   const filename = item.image.split("/").at(-1) ?? item.image;
   const backHref = `/${archiveCategoryPaths[item.category]}`;
   const categoryLabel =
@@ -108,9 +111,9 @@ export default function StoryDetail({ item }: StoryDetailProps) {
   return (
     <main
       ref={pageRef}
-      className="min-h-screen bg-black px-5 pb-20 pt-24 text-white opacity-0 sm:px-6 md:px-10 md:pb-24 md:pt-32"
+      className="min-h-screen bg-black px-5 pb-20 pt-24 text-white opacity-0 sm:px-6 md:px-10 md:pb-24 md:pt-32 lg:pb-20 lg:pt-24"
     >
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-6xl">
         <Breadcrumb
           items={[
             { label: "Home", href: "/" },
@@ -119,9 +122,9 @@ export default function StoryDetail({ item }: StoryDetailProps) {
           ]}
         />
 
-        <section className="mt-8 grid items-start gap-10 lg:mt-10 lg:grid-cols-[minmax(360px,0.9fr)_minmax(0,1.35fr)] lg:gap-20">
+        <section className="mt-8 grid items-start gap-10 lg:mt-8 lg:grid-cols-[minmax(320px,0.78fr)_minmax(0,1.35fr)] lg:gap-14">
           <div ref={coverRef} className="opacity-0 lg:sticky lg:top-28">
-            <div className="relative mx-auto aspect-[3/4] w-full max-w-xl overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04]">
+            <div className="relative mx-auto aspect-[3/4] w-full max-w-xl overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04] lg:max-w-md">
               {isMissing ? (
                 <div
                   className="flex h-full flex-col items-center justify-center gap-3 px-8 text-center"
@@ -134,18 +137,29 @@ export default function StoryDetail({ item }: StoryDetailProps) {
                   <span className="text-xs text-gray-500">{filename}</span>
                 </div>
               ) : (
-                <Image
-                  fill
-                  priority
-                  src={item.image}
-                  alt={`${item.title} cover`}
-                  sizes="(min-width: 1024px) 42vw, 90vw"
-                  className="object-cover"
-                  style={{
-                    objectPosition: item.detailImagePosition ?? "center",
-                  }}
-                  onError={() => setIsMissing(true)}
-                />
+                <>
+                  <div
+                    aria-hidden="true"
+                    className={`absolute inset-0 bg-neutral-950 transition-opacity duration-500 ${
+                      isLoaded ? "opacity-0" : "animate-pulse opacity-100"
+                    }`}
+                  />
+                  <Image
+                    fill
+                    priority
+                    src={item.image}
+                    alt={`${item.title} cover`}
+                    sizes="(min-width: 1024px) 42vw, 90vw"
+                    className={`object-cover transition-opacity duration-700 ${
+                      isLoaded ? "opacity-100" : "opacity-0"
+                    }`}
+                    style={{
+                      objectPosition: item.detailImagePosition ?? "center",
+                    }}
+                    onLoad={() => setLoadedImage(item.image)}
+                    onError={() => setMissingImage(item.image)}
+                  />
+                </>
               )}
               <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent" />
             </div>
@@ -155,7 +169,7 @@ export default function StoryDetail({ item }: StoryDetailProps) {
             <p className="text-xs font-medium uppercase tracking-[0.35em] text-gray-500">
               {item.category} Entry
             </p>
-            <h1 className="mt-5 break-words text-4xl font-bold tracking-tight sm:text-6xl lg:text-8xl">
+            <h1 className="mt-5 break-words text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl">
               {item.title}
             </h1>
             {bookAuthor && (
@@ -179,7 +193,7 @@ export default function StoryDetail({ item }: StoryDetailProps) {
               )}
             </div>
 
-            <p className="mt-8 max-w-3xl text-lg leading-8 text-gray-300">
+            <p className="mt-8 max-w-3xl text-lg leading-8 text-gray-300 lg:mt-6 lg:text-base lg:leading-7">
               {getArchiveDetailDescription(item)}
             </p>
 

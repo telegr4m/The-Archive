@@ -21,7 +21,7 @@ export default function RelatedStories({ item }: RelatedStoriesProps) {
 
   return (
     <section
-      className="mt-16 border-t border-white/10 pt-12 md:mt-24 md:pt-16"
+      className="mt-16 border-t border-white/10 pt-12 md:mt-24 md:pt-16 lg:mt-20 lg:pt-12"
       aria-labelledby="related-stories-title"
     >
       <div className="related-stories-heading">
@@ -36,7 +36,7 @@ export default function RelatedStories({ item }: RelatedStoriesProps) {
         </h2>
       </div>
 
-      <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
+      <div className="mt-6 grid gap-4 sm:mt-8 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4 lg:gap-4 xl:grid-cols-5">
         {relatedItems.map((relatedItem) => (
           <Link
             key={relatedItem.id}
@@ -45,16 +45,16 @@ export default function RelatedStories({ item }: RelatedStoriesProps) {
             className="related-story-card group flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] transition-all duration-300 hover:-translate-y-1 hover:border-white/25 hover:bg-white/[0.06]"
           >
             <ArchiveCover image={relatedItem.image} title={relatedItem.title} />
-            <div className="flex flex-1 flex-col p-5">
+            <div className="flex flex-1 flex-col p-4 sm:p-5 lg:p-4">
               <div className="flex items-center justify-between gap-3 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-gray-500">
                 <span>{relatedItem.category}</span>
                 <ArchiveRating rating={relatedItem.rating} />
               </div>
-              <h3 className="mt-3 line-clamp-2 min-h-14 overflow-hidden text-ellipsis text-xl font-semibold tracking-tight">
+              <h3 className="mt-2 line-clamp-2 min-h-12 overflow-hidden text-ellipsis text-lg font-semibold tracking-tight sm:mt-3 sm:min-h-14 sm:text-xl">
                 {relatedItem.title}
               </h3>
               <p className="mt-3 text-sm text-gray-400">{relatedItem.status}</p>
-              <span className="mt-auto flex items-center gap-2 pt-5 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-gray-500 transition-colors duration-300 group-hover:text-white">
+              <span className="mt-auto flex items-center gap-2 pt-3 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-gray-500 transition-colors duration-300 group-hover:text-white sm:pt-5">
                 View Details <span aria-hidden="true">-&gt;</span>
               </span>
             </div>

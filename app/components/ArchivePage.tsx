@@ -37,8 +37,8 @@ export default function ArchivePage({
   }, []);
 
   return (
-    <main className="min-h-screen bg-black px-5 py-20 text-white sm:px-6 md:px-10">
-      <div className="mx-auto max-w-[1800px]">
+    <main className="min-h-screen bg-black px-5 py-20 text-white sm:px-6 md:px-10 lg:py-16">
+      <div className="mx-auto max-w-[1560px]">
         <div className="mb-10">
           <Breadcrumb items={[{ label: "Home", href: "/" }, { label: title }]} />
         </div>
@@ -59,7 +59,7 @@ export default function ArchivePage({
               <p className="mb-4 text-xs uppercase tracking-[0.4em] text-purple-300">
                 Archive Wing
               </p>
-              <h1 className="break-words text-4xl font-bold tracking-tight sm:text-6xl md:text-8xl">
+              <h1 className="break-words text-4xl font-bold tracking-tight sm:text-6xl md:text-8xl lg:text-7xl">
                 {title}
               </h1>
               <p className="mt-6 max-w-2xl text-base leading-relaxed text-gray-400 sm:text-lg">

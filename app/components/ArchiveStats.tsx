@@ -88,16 +88,16 @@ export default function ArchiveStats({
       className={
         compact
           ? "border-y border-white/10 py-8"
-          : "bg-black px-5 py-20 text-white sm:px-6 md:px-8 md:py-28"
+          : "bg-black px-5 py-20 text-white sm:px-6 md:px-8 md:py-28 lg:py-20"
       }
       aria-label={title}
     >
-      <div className={compact ? "" : "mx-auto max-w-7xl"}>
+      <div className={compact ? "" : "mx-auto max-w-6xl"}>
         <div
           className={
             compact
               ? "mb-6 flex flex-wrap items-end justify-between gap-3"
-              : "mb-12 max-w-3xl"
+              : "mb-12 max-w-3xl lg:mb-9"
           }
         >
           <div>
@@ -108,7 +108,7 @@ export default function ArchiveStats({
               className={
                 compact
                   ? "mt-2 text-2xl font-semibold tracking-tight"
-                  : "mt-4 text-4xl font-bold tracking-tight sm:text-5xl md:text-7xl"
+                  : "mt-4 text-4xl font-bold tracking-tight sm:text-5xl md:text-7xl lg:text-6xl"
               }
             >
               {title}
@@ -137,7 +137,7 @@ export default function ArchiveStats({
               key={stat.label}
               className={`archive-stat-card ${
                 compact
-                  ? "bg-black p-5"
+                  ? "bg-black p-5 lg:p-4"
                   : `rounded-2xl border border-white/10 bg-white/[0.025] p-4 sm:p-6 xl:col-span-2 ${
                       stats.length === 8 && index === 5 ? "xl:col-start-3" : ""
                     }`
@@ -145,7 +145,7 @@ export default function ArchiveStats({
             >
               <p
                 className={`archive-stat-value font-semibold tracking-tight text-white ${
-                  compact ? "text-3xl" : "text-4xl md:text-5xl"
+                  compact ? "text-3xl lg:text-2xl" : "text-4xl md:text-5xl lg:text-4xl"
                 }`}
                 data-value={stat.value}
                 data-decimals={stat.decimals ?? 0}

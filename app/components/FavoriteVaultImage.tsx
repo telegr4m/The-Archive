@@ -6,13 +6,16 @@ import { useState } from "react";
 type FavoriteVaultImageProps = {
   image: string;
   title: string;
+  priority?: boolean;
 };
 
 export default function FavoriteVaultImage({
   image,
   title,
+  priority = false,
 }: FavoriteVaultImageProps) {
   const [isMissing, setIsMissing] = useState(() => !image);
+  const [isLoaded, setIsLoaded] = useState(false);
   const filename = image.split("/").at(-1) ?? image;
 
   if (isMissing) {
@@ -31,13 +34,26 @@ export default function FavoriteVaultImage({
   }
 
   return (
-    <Image
-      fill
-      src={image}
-      alt={title}
-      sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
-      className="object-cover object-top opacity-90 transition-transform duration-700 group-hover:scale-110"
-      onError={() => setIsMissing(true)}
-    />
+    <>
+      <div
+        aria-hidden="true"
+        className={`absolute inset-0 bg-neutral-950 transition-opacity duration-500 ${
+          isLoaded ? "opacity-0" : "animate-pulse opacity-100"
+        }`}
+      />
+      <Image
+        fill
+        src={image}
+        alt={title}
+        priority={priority}
+        loading={priority ? undefined : "lazy"}
+        sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
+        className={`object-cover object-top transition-[opacity,transform] duration-700 group-hover:scale-110 ${
+          isLoaded ? "opacity-90" : "opacity-0"
+        }`}
+        onLoad={() => setIsLoaded(true)}
+        onError={() => setIsMissing(true)}
+      />
+    </>
   );
 }

@@ -39,7 +39,7 @@ export default function Navbar() {
       className="fixed inset-x-0 top-0 z-50 w-full bg-transparent opacity-0"
     >
       <nav
-        className="flex w-full items-center justify-between px-5 py-4 [text-shadow:0_2px_12px_rgba(0,0,0,0.9)] sm:px-7 lg:px-10 xl:px-12"
+        className="flex w-full items-center justify-between px-5 py-4 [text-shadow:0_2px_12px_rgba(0,0,0,0.9)] sm:px-7 lg:px-8 lg:py-3 xl:px-10"
         aria-label="Main navigation"
       >
         <Link
@@ -51,7 +51,7 @@ export default function Navbar() {
           The Archive
         </Link>
 
-        <div className="hidden items-center gap-9 lg:flex xl:gap-11">
+        <div className="hidden items-center gap-7 lg:flex xl:gap-9">
           {links.map((link) => {
             const isActive = pathname === link.href;
 
@@ -60,7 +60,7 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 scroll={true}
-                className={`group relative flex min-h-10 items-center text-[0.95rem] font-medium tracking-[0.015em] transition-colors duration-300 lg:text-base ${
+                className={`group relative flex min-h-10 items-center text-[0.95rem] font-medium tracking-[0.015em] transition-colors duration-300 ${
                   isActive
                     ? "text-white"
                     : "text-gray-400 hover:text-gray-100"

@@ -81,9 +81,9 @@ export default function ArchiveHeatmap() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-black px-5 pb-20 text-white sm:px-6 md:px-8 md:pb-28">
-      <div className="mx-auto max-w-7xl border-t border-white/10 pt-10">
-        <div className="grid gap-8 lg:grid-cols-[0.55fr_1fr]">
+    <section ref={sectionRef} className="bg-black px-5 pb-20 text-white sm:px-6 md:px-8 md:pb-28 lg:pb-20">
+      <div className="mx-auto max-w-6xl border-t border-white/10 pt-10 lg:pt-8">
+        <div className="grid gap-8 lg:grid-cols-[0.55fr_1fr] lg:gap-6">
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.35em] text-gray-500">
               Collection Breakdown

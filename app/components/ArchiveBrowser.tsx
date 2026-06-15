@@ -82,7 +82,7 @@ export default function ArchiveBrowser({
 
   return (
     <section aria-label={`${title} archive browser`}>
-      <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(440px,0.85fr)] xl:gap-16">
+      <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(400px,0.8fr)] lg:gap-8 xl:gap-10">
         {header}
 
         <div className="rounded-2xl border border-white/10 bg-white/[0.025] p-4">
@@ -168,12 +168,12 @@ export default function ArchiveBrowser({
         </div>
       </div>
 
-      {stats && <div className="mt-12">{stats}</div>}
+      {stats && <div className="mt-8 sm:mt-12">{stats}</div>}
 
       <div
-        className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+        className="mt-8 grid grid-cols-1 gap-4 sm:mt-12 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-5 xl:grid-cols-4 2xl:grid-cols-5"
       >
-        {visibleItems.map((item) => (
+        {visibleItems.map((item, index) => (
           <Link
             key={item.id}
             href={getArchiveItemHref(item)}
@@ -182,9 +182,13 @@ export default function ArchiveBrowser({
             className="archive-browser-card group h-full overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] transition-all duration-300 hover:-translate-y-1 hover:border-white/25 hover:bg-white/[0.06]"
           >
             <article className="flex h-full flex-col">
-              <ArchiveCover image={item.image} title={item.title} />
+              <ArchiveCover
+                image={item.image}
+                title={item.title}
+                priority={index === 0}
+              />
 
-              <div className="flex flex-1 flex-col p-5">
+              <div className="flex flex-1 flex-col p-4 sm:p-5 lg:p-4">
                 <p className="text-[0.65rem] font-medium uppercase tracking-[0.2em] text-gray-500">
                   {item.category}
                 </p>
@@ -194,11 +198,11 @@ export default function ArchiveBrowser({
                   <ArchiveRating rating={item.rating} />
                 </div>
 
-                <h2 className="mt-3 line-clamp-2 min-h-14 overflow-hidden text-ellipsis text-xl font-semibold tracking-tight text-white">
+                <h2 className="mt-2 line-clamp-2 min-h-12 overflow-hidden text-ellipsis text-lg font-semibold tracking-tight text-white sm:mt-3 sm:min-h-14 sm:text-xl lg:min-h-12 lg:text-lg">
                   {item.title}
                 </h2>
 
-                <div className="mt-3 flex h-7 flex-wrap gap-1.5 overflow-hidden">
+                <div className="mt-2 flex h-7 flex-wrap gap-1.5 overflow-hidden sm:mt-3">
                   {item.genres.slice(0, 3).map((itemGenre) => (
                     <span
                       key={itemGenre}
@@ -209,10 +213,10 @@ export default function ArchiveBrowser({
                   ))}
                 </div>
 
-                <p className="mt-4 line-clamp-2 min-h-12 overflow-hidden text-ellipsis text-sm leading-6 text-gray-400">
+                <p className="mt-3 line-clamp-1 min-h-6 overflow-hidden text-ellipsis text-sm leading-6 text-gray-400 sm:mt-4 sm:line-clamp-2 sm:min-h-12">
                   {getArchiveCardDescription(item)}
                 </p>
-                <span className="mt-auto flex items-center gap-2 pt-5 text-xs font-medium uppercase tracking-[0.16em] text-gray-500 transition-colors duration-300 group-hover:text-white">
+                <span className="mt-auto flex items-center gap-2 pt-3 text-xs font-medium uppercase tracking-[0.16em] text-gray-500 transition-colors duration-300 group-hover:text-white sm:pt-5">
                   View Details <span aria-hidden="true">-&gt;</span>
                 </span>
               </div>

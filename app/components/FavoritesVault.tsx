@@ -12,22 +12,22 @@ const favorites = mixFavorites(archiveItems.filter((item) => item.favorite));
 
 export default function FavoritesVault() {
   return (
-    <section className="relative overflow-hidden bg-black px-5 py-20 text-white sm:px-6 md:py-24">
-      <div className="relative z-10 max-w-7xl mx-auto">
+    <section className="relative overflow-hidden bg-black px-5 py-20 text-white sm:px-6 md:py-24 lg:py-20">
+      <div className="relative z-10 mx-auto max-w-6xl">
         <p className="uppercase tracking-[0.3em] text-sm text-purple-300 mb-4">
           Favorites Vault
         </p>
 
-        <h2 className="mb-6 text-3xl font-bold sm:text-4xl md:text-6xl">
+        <h2 className="mb-6 text-3xl font-bold sm:text-4xl md:text-6xl lg:text-5xl">
           The entries that stay at the top.
         </h2>
 
-        <p className="max-w-2xl text-gray-300 text-lg mb-12">
+        <p className="mb-8 max-w-2xl text-base text-gray-300 sm:mb-12 sm:text-lg">
           A special section for the entries I would always recommend, revisit,
           or remember.
         </p>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-4 lg:gap-5">
           {favorites.map((item) => (
             <Link
               key={item.id}
@@ -39,7 +39,7 @@ export default function FavoritesVault() {
               <FavoriteTiltCard>
                 <FavoriteVaultImage image={item.image} title={item.title} />
 
-                <div className="absolute inset-x-0 bottom-0 bg-black/90 p-5 sm:p-6">
+                <div className="absolute inset-x-0 bottom-0 bg-black/90 p-5 sm:p-6 lg:p-5">
                   <div className="mb-3 flex items-center justify-between gap-3 text-xs uppercase tracking-[0.3em] text-purple-300">
                     <span>{item.category}</span>
                     <ArchiveRating
@@ -48,7 +48,7 @@ export default function FavoritesVault() {
                     />
                   </div>
 
-                  <h3 className="mb-3 line-clamp-2 text-2xl font-bold sm:text-3xl">
+                  <h3 className="mb-3 line-clamp-2 text-2xl font-bold sm:text-3xl lg:text-2xl">
                     {item.title}
                   </h3>
 

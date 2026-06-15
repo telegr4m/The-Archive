@@ -53,12 +53,12 @@ export default function ArchiveHealthPage() {
   ).size;
 
   return (
-    <main className="min-h-screen bg-black px-5 pb-20 pt-24 text-white sm:px-6 md:px-10 md:pb-24 md:pt-28">
-      <div className="mx-auto max-w-[1600px]">
+    <main className="min-h-screen bg-black px-5 pb-20 pt-24 text-white sm:px-6 md:px-10 md:pb-24 md:pt-28 lg:pb-20 lg:pt-24">
+      <div className="mx-auto max-w-[1440px]">
         <p className="text-xs font-medium uppercase tracking-[0.35em] text-gray-500">
           Internal Maintenance
         </p>
-        <h1 className="mt-4 break-words text-4xl font-bold tracking-tight sm:text-6xl md:text-8xl">
+        <h1 className="mt-4 break-words text-4xl font-bold tracking-tight sm:text-6xl md:text-8xl lg:text-7xl">
           Archive Health
         </h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-gray-400">
@@ -108,7 +108,7 @@ export default function ArchiveHealthPage() {
                 key={category}
                 className="overflow-hidden rounded-3xl border border-white/10 bg-white/[0.025]"
               >
-                <header className="flex flex-wrap items-end justify-between gap-4 border-b border-white/10 p-6 sm:p-8">
+                <header className="flex flex-wrap items-end justify-between gap-4 border-b border-white/10 p-6 sm:p-8 lg:p-6">
                   <div>
                     <p className="text-xs uppercase tracking-[0.25em] text-gray-500">
                       Category Health
@@ -129,13 +129,13 @@ export default function ArchiveHealthPage() {
                 </header>
 
                 {categoryIssues.length === 0 ? (
-                  <p className="p-6 text-sm text-gray-400 sm:p-8">
+                  <p className="p-6 text-sm text-gray-400 sm:p-8 lg:p-6">
                     No data issues detected.
                   </p>
                 ) : (
                   <div className="grid gap-px bg-white/10 lg:grid-cols-2">
                     {categoryIssues.map((issue) => (
-                      <div key={issue.key} className="bg-black p-6 sm:p-8">
+                      <div key={issue.key} className="bg-black p-6 sm:p-8 lg:p-6">
                         <div className="flex items-center justify-between gap-4">
                           <h3 className="text-sm font-semibold uppercase tracking-[0.18em]">
                             {issue.label}
