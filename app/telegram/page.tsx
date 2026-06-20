@@ -84,13 +84,6 @@ export default function TelegramProfilePage() {
       <TelegramEntryGate />
 
       <div className="relative z-10 min-h-full w-full px-5 pb-6 pt-20 sm:px-8 sm:pb-8 lg:px-10 lg:pb-5 lg:pt-16 xl:px-12">
-        <div className="mb-3 flex justify-end lg:fixed lg:right-10 lg:top-14 lg:z-20 lg:mb-0 xl:right-12">
-          <TelegramMusicPlayer
-            songs={telegramSongs}
-            artworkPaths={artworkPaths}
-          />
-        </div>
-
         <header className="flex max-w-2xl items-center gap-5 sm:gap-6">
           <div className="w-28 shrink-0 sm:w-36">
             <TelegramProfileImage />
@@ -127,6 +120,13 @@ export default function TelegramProfilePage() {
             </Link>
           </div>
         </header>
+
+        <div className="mt-4 flex justify-center lg:fixed lg:right-10 lg:top-14 lg:z-20 lg:mt-0 lg:justify-end xl:right-12">
+          <TelegramMusicPlayer
+            songs={telegramSongs}
+            artworkPaths={artworkPaths}
+          />
+        </div>
 
         <TelegramFloatingCards favorites={favoriteWorks} games={profileGames} />
       </div>

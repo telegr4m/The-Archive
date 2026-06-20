@@ -35,11 +35,13 @@ export default function TelegramMusicPlayer({
   const fadeResolveRef = useRef<(() => void) | null>(null);
   const transitionRef = useRef(false);
   const shouldFadeInRef = useRef(false);
+  const usesDeviceVolumeRef = useRef(false);
   const [playlist, setPlaylist] = useState<TelegramSong[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [volume, setVolume] = useState(15);
+  const [usesDeviceVolume, setUsesDeviceVolume] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isArtworkChanging, setIsArtworkChanging] = useState(false);
@@ -117,6 +119,34 @@ export default function TelegramMusicPlayer({
   }, []);
 
   useEffect(() => {
+    const touchDeviceQuery = window.matchMedia(
+      "(hover: none) and (pointer: coarse)"
+    );
+
+    const updateVolumeMode = () => {
+      const nextUsesDeviceVolume =
+        touchDeviceQuery.matches && navigator.maxTouchPoints > 0;
+      usesDeviceVolumeRef.current = nextUsesDeviceVolume;
+      setUsesDeviceVolume(nextUsesDeviceVolume);
+
+      const audio = audioRef.current;
+      if (audio) {
+        cancelActiveFade();
+        audio.volume = getElementVolume(
+          volumeRef.current,
+          nextUsesDeviceVolume
+        );
+        audio.muted = volumeRef.current === 0;
+      }
+    };
+
+    updateVolumeMode();
+    touchDeviceQuery.addEventListener("change", updateVolumeMode);
+    return () =>
+      touchDeviceQuery.removeEventListener("change", updateVolumeMode);
+  }, [cancelActiveFade]);
+
+  useEffect(() => {
     const handleEntry = () => {
       hasEnteredRef.current = true;
 
@@ -124,7 +154,10 @@ export default function TelegramMusicPlayer({
       if (!audio) return;
 
       setHasError(false);
-      audio.volume = clampVolume(volumeRef.current / 100);
+      audio.volume = getElementVolume(
+        volumeRef.current,
+        usesDeviceVolumeRef.current
+      );
       audio.muted = volumeRef.current === 0;
       void audio.play().catch(() => {
         setIsPlaying(false);
@@ -139,9 +172,11 @@ export default function TelegramMusicPlayer({
     const audio = audioRef.current;
     if (!audio || !currentSong) return;
 
-    audio.volume = clampVolume(
-      shouldFadeInRef.current ? 0 : volumeRef.current / 100
+    const targetVolume = getElementVolume(
+      volumeRef.current,
+      usesDeviceVolumeRef.current
     );
+    audio.volume = shouldFadeInRef.current ? 0 : targetVolume;
     audio.muted = volumeRef.current === 0;
     setHasError(false);
     audio.load();
@@ -151,14 +186,14 @@ export default function TelegramMusicPlayer({
         .then(async () => {
           if (shouldFadeInRef.current) {
             shouldFadeInRef.current = false;
-            await fadeAudio(audio, volumeRef.current / 100, 550);
+            await fadeAudio(audio, targetVolume, 550);
           }
         })
         .catch(() => setIsPlaying(false))
         .finally(() => {
           if (audio.paused && shouldFadeInRef.current) {
             shouldFadeInRef.current = false;
-            audio.volume = clampVolume(volumeRef.current / 100);
+            audio.volume = targetVolume;
           }
           transitionRef.current = false;
         });
@@ -176,7 +211,12 @@ export default function TelegramMusicPlayer({
     setIsArtworkChanging(true);
 
     const audio = audioRef.current;
-    if (!fromEnded && audio && !audio.paused) {
+    if (
+      !fromEnded &&
+      audio &&
+      !audio.paused &&
+      !usesDeviceVolumeRef.current
+    ) {
       await fadeAudio(audio, 0, 450);
     }
 
@@ -190,7 +230,8 @@ export default function TelegramMusicPlayer({
     setHasError(false);
     setCurrentTime(0);
     setDuration(0);
-    shouldFadeInRef.current = hasEnteredRef.current;
+    shouldFadeInRef.current =
+      hasEnteredRef.current && !usesDeviceVolumeRef.current;
     setCurrentIndex(nextIndex);
     window.setTimeout(() => setIsArtworkChanging(false), 40);
 
@@ -205,7 +246,10 @@ export default function TelegramMusicPlayer({
 
     if (audio) {
       cancelActiveFade();
-      audio.volume = clampVolume(nextVolume / 100);
+      audio.volume = getElementVolume(
+        nextVolume,
+        usesDeviceVolumeRef.current
+      );
       audio.muted = nextVolume === 0;
     }
   }
@@ -449,18 +493,34 @@ export default function TelegramMusicPlayer({
           step="1"
           value={volume}
           aria-label="Site audio volume"
-          aria-valuetext={`${volume}%`}
-          title="Controls site audio volume"
+          aria-valuetext={
+            usesDeviceVolume
+              ? volume === 0
+                ? "Muted"
+                : "Unmuted; loudness is controlled by phone volume buttons"
+              : `${volume}%`
+          }
+          title={
+            usesDeviceVolume
+              ? "Mute or unmute site audio"
+              : "Controls site audio volume"
+          }
           onChange={(event) => changeVolume(Number(event.target.value))}
           className="h-11 min-w-0 flex-1 cursor-pointer appearance-none rounded-full sm:h-5 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-[#a62a2a] sm:[&::-moz-range-thumb]:h-3 sm:[&::-moz-range-thumb]:w-3 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#a62a2a] sm:[&::-webkit-slider-thumb]:h-3 sm:[&::-webkit-slider-thumb]:w-3"
           style={{
-            background: `linear-gradient(to right, #8f1515 0%, #8f1515 ${volume}%, rgba(255,255,255,0.15) ${volume}%, rgba(255,255,255,0.15) 100%) center / 100% 4px no-repeat`,
+            background: `linear-gradient(to right, #8f1515 0%, #8f1515 ${usesDeviceVolume && volume > 0 ? 100 : volume}%, rgba(255,255,255,0.15) ${usesDeviceVolume && volume > 0 ? 100 : volume}%, rgba(255,255,255,0.15) 100%) center / 100% 4px no-repeat`,
           }}
         />
         <span className="w-7 text-right text-[0.6rem] tabular-nums text-gray-500">
-          {volume}%
+          {usesDeviceVolume ? (volume === 0 ? "Mute" : "On") : `${volume}%`}
         </span>
       </div>
+
+      {usesDeviceVolume && (
+        <p className="-mt-1 text-right text-[0.55rem] text-gray-500">
+          Use phone volume buttons for loudness
+        </p>
+      )}
 
       </div>
 
@@ -632,6 +692,10 @@ function getTrackAccent(src: string) {
 
 function clampVolume(value: number) {
   return Math.min(1, Math.max(0, value));
+}
+
+function getElementVolume(volume: number, usesDeviceVolume: boolean) {
+  return usesDeviceVolume ? 1 : clampVolume(volume / 100);
 }
 
 function SpeakerIcon({ muted }: { muted: boolean }) {
