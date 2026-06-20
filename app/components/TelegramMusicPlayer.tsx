@@ -212,11 +212,44 @@ export default function TelegramMusicPlayer({
 
   function seekTo(progress: number) {
     const audio = audioRef.current;
-    if (!audio || duration <= 0) return;
+    if (!audio) return;
 
-    const nextTime = (progress / 100) * duration;
+    const seekDuration = Number.isFinite(audio.duration)
+      ? audio.duration
+      : duration;
+    if (seekDuration <= 0) return;
+
+    const nextTime = (Math.min(100, Math.max(0, progress)) / 100) * seekDuration;
     audio.currentTime = nextTime;
     setCurrentTime(nextTime);
+  }
+
+  function seekFromPointer(event: React.PointerEvent<HTMLInputElement>) {
+    const bounds = event.currentTarget.getBoundingClientRect();
+    if (bounds.width <= 0) return;
+
+    seekTo(((event.clientX - bounds.left) / bounds.width) * 100);
+  }
+
+  function beginSeeking(event: React.PointerEvent<HTMLInputElement>) {
+    event.preventDefault();
+    event.currentTarget.setPointerCapture(event.pointerId);
+    seekFromPointer(event);
+  }
+
+  function continueSeeking(event: React.PointerEvent<HTMLInputElement>) {
+    if (!event.currentTarget.hasPointerCapture(event.pointerId)) return;
+
+    event.preventDefault();
+    seekFromPointer(event);
+  }
+
+  function finishSeeking(event: React.PointerEvent<HTMLInputElement>) {
+    if (!event.currentTarget.hasPointerCapture(event.pointerId)) return;
+
+    event.preventDefault();
+    seekFromPointer(event);
+    event.currentTarget.releasePointerCapture(event.pointerId);
   }
 
   async function togglePlayback() {
@@ -383,7 +416,15 @@ export default function TelegramMusicPlayer({
           aria-label="Song progress"
           aria-valuetext={`${formatTime(currentTime)} of ${formatTime(duration)}`}
           onChange={(event) => seekTo(Number(event.target.value))}
-          className="mt-1 h-5 w-full cursor-pointer appearance-none rounded-full [&::-moz-range-thumb]:h-3 [&::-moz-range-thumb]:w-3 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-[#a62a2a] [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#a62a2a]"
+          onPointerDown={beginSeeking}
+          onPointerMove={continueSeeking}
+          onPointerUp={finishSeeking}
+          onPointerCancel={(event) => {
+            if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+              event.currentTarget.releasePointerCapture(event.pointerId);
+            }
+          }}
+          className="mt-0.5 h-11 w-full cursor-pointer touch-none appearance-none rounded-full sm:mt-1 sm:h-5 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-[#a62a2a] sm:[&::-moz-range-thumb]:h-3 sm:[&::-moz-range-thumb]:w-3 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#a62a2a] sm:[&::-webkit-slider-thumb]:h-3 sm:[&::-webkit-slider-thumb]:w-3"
           style={{
             background: `linear-gradient(to right, #8f1515 0%, #8f1515 ${
               duration > 0 ? (currentTime / duration) * 100 : 0
@@ -407,10 +448,11 @@ export default function TelegramMusicPlayer({
           max="100"
           step="1"
           value={volume}
-          aria-label="Volume"
+          aria-label="Site audio volume"
           aria-valuetext={`${volume}%`}
+          title="Controls site audio volume"
           onChange={(event) => changeVolume(Number(event.target.value))}
-          className="h-5 min-w-0 flex-1 cursor-pointer appearance-none rounded-full [&::-moz-range-thumb]:h-3 [&::-moz-range-thumb]:w-3 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-[#a62a2a] [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#a62a2a]"
+          className="h-11 min-w-0 flex-1 cursor-pointer appearance-none rounded-full sm:h-5 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-[#a62a2a] sm:[&::-moz-range-thumb]:h-3 sm:[&::-moz-range-thumb]:w-3 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#a62a2a] sm:[&::-webkit-slider-thumb]:h-3 sm:[&::-webkit-slider-thumb]:w-3"
           style={{
             background: `linear-gradient(to right, #8f1515 0%, #8f1515 ${volume}%, rgba(255,255,255,0.15) ${volume}%, rgba(255,255,255,0.15) 100%) center / 100% 4px no-repeat`,
           }}
