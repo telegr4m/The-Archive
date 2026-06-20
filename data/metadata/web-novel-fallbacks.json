@@ -38,10 +38,11 @@
     "sourceStatus": "Finished"
   },
   "kill-the-sun": {
-    "provider": "Amazon Books catalog cache; original serialization year unverified",
+    "provider": "WebNovel original serialization record",
     "matchedTitle": "Kill the Sun",
-    "sourceUrl": "https://www.amazon.com/Kill-Sun-Book-Warmaisach-_-ebook/dp/B0DB9D1Q3W",
+    "sourceUrl": "https://www.webnovel.com/book/kill-the-sun_27467949206850305",
     "description": "In a post-apocalyptic world ruled by Specters, an amnesiac boy grows strong enough to pursue life as a Zephyx Extractor, only to discover that a forbidden Specter power already threatens his future.",
+    "releaseYear": 2023,
     "creator": "Warmaisach",
     "formatLabel": "Web Novel",
     "sourceStatus": "Finished"

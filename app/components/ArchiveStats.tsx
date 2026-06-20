@@ -3,11 +3,8 @@
 import { useEffect, useMemo, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import {
-  archiveItems,
-  type ArchiveCategory,
-  type ArchiveItem,
-} from "../data/archiveItems";
+import type { ArchiveCategory, ArchiveItem } from "../lib/archiveTypes";
+import { getAllEntries } from "../lib/archiveRepository";
 
 type ArchiveStatsProps = {
   items?: ArchiveItem[];
@@ -33,7 +30,7 @@ const categories: { label: string; category: ArchiveCategory }[] = [
 ];
 
 export default function ArchiveStats({
-  items = archiveItems,
+  items = getAllEntries(),
   title = "Archive Statistics",
   description = "A live view of the entries currently held in the archive.",
   compact = false,

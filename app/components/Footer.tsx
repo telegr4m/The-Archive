@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import FooterViewerCount from "./FooterViewerCount";
 
 const links = [
   { label: "Home", href: "/" },
@@ -109,11 +110,18 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 border-t border-white/10 pt-6 sm:mt-12">
-          <p className="text-xs text-gray-600">
-            © {new Date().getFullYear()} The Archive. All featured works remain
-            with their original creators.
-          </p>
+        <div className="mt-8 flex flex-col gap-3 border-t border-white/10 pt-6 sm:mt-12 sm:flex-row sm:items-end sm:justify-between">
+          <div className="max-w-3xl text-xs leading-5 text-gray-600">
+            <p>
+              © {new Date().getFullYear()} The Archive. All featured works remain
+              with their original creators.
+            </p>
+            <p>
+              Music and media references remain with their respective rights
+              holders.
+            </p>
+          </div>
+          <FooterViewerCount />
         </div>
       </div>
     </footer>
@@ -177,21 +185,8 @@ function InstagramIcon({ className }: { className: string }) {
 
 function DiscordIcon({ className }: { className: string }) {
   return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 24 24"
-      fill="none"
-      className={className}
-    >
-      <path
-        d="M8.6 7.6a8.3 8.3 0 0 1 6.8 0m-8.9 8.7c3.7 1.7 7.3 1.7 11 0m-9.3-1.8h.01m7.58 0h.01M8 5.9 6.5 6.5C4.8 9 4.2 11.6 4.4 14.2c1.1 1.7 2.6 3 4.4 3.8l1.1-1.5m6.1-10.6 1.5.6c1.7 2.5 2.3 5.1 2.1 7.7a10 10 0 0 1-4.4 3.8l-1.1-1.5"
-        stroke="currentColor"
-        strokeWidth="1.7"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <circle cx="8.2" cy="14.5" r=".85" fill="currentColor" />
-      <circle cx="15.8" cy="14.5" r=".85" fill="currentColor" />
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M19.7 5.3A18.4 18.4 0 0 0 15.2 4l-.6 1.2a16.7 16.7 0 0 0-5.2 0L8.8 4a18.5 18.5 0 0 0-4.5 1.3C1.5 9.5.7 13.5 1.1 17.4a18.2 18.2 0 0 0 5.5 2.8l1.3-1.8a11.7 11.7 0 0 1-2.1-1l.5-.4c4 1.8 8.4 1.8 12.3 0l.6.4c-.7.4-1.4.7-2.1 1l1.3 1.8a18.2 18.2 0 0 0 5.5-2.8c.5-4.5-.8-8.4-4.2-12.1ZM8.4 15.1c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Zm7.2 0c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Z" />
     </svg>
   );
 }

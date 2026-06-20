@@ -1,0 +1,29 @@
+.playerGlow {
+  background: radial-gradient(
+    circle at 16% 20%,
+    color-mix(in srgb, var(--track-accent) 22%, transparent),
+    transparent 52%
+  );
+  filter: blur(14px);
+  opacity: 0.75;
+  transition: background 350ms ease;
+}
+
+.artwork {
+  transition:
+    opacity 300ms ease,
+    transform 300ms ease,
+    box-shadow 350ms ease;
+}
+
+.artworkChanging {
+  opacity: 0;
+  transform: scale(0.94);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .artwork,
+  .playerGlow {
+    transition-duration: 1ms;
+  }
+}

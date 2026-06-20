@@ -1,4 +1,4 @@
-import type { ArchiveItem } from "./archiveItems";
+import type { ArchiveItem } from "../lib/archiveTypes";
 
 export function getFavoriteArchiveItems(items: readonly ArchiveItem[]) {
   return items

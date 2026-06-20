@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import RecentlyAddedBrowser from "../components/RecentlyAddedBrowser";
-import { archiveItems } from "../data/archiveItems";
+import { getAllEntries } from "../lib/archiveRepository";
 
 export const metadata: Metadata = {
   title: "Recently Added | The Archive",
@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function RecentlyAddedPage() {
-  return <RecentlyAddedBrowser items={archiveItems} />;
+  return <RecentlyAddedBrowser items={getAllEntries()} />;
 }

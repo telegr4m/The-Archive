@@ -2,12 +2,9 @@ import { existsSync } from "node:fs";
 import path from "node:path";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import {
-  archiveItems,
-  getArchiveItemHref,
-  type ArchiveCategory,
-  type ArchiveItem,
-} from "../../data/archiveItems";
+import { getArchiveItemHref } from "../../lib/archiveRoutes";
+import type { ArchiveCategory, ArchiveItem } from "../../lib/archiveTypes";
+import { getAllEntries } from "../../lib/archiveRepository";
 
 const categories: ArchiveCategory[] = [
   "Manga",
@@ -47,7 +44,8 @@ export default function ArchiveHealthPage() {
     notFound();
   }
 
-  const issues = calculateIssues();
+  const archiveItems = getAllEntries();
+  const issues = calculateIssues(archiveItems);
   const totalProblems = new Set(
     issues.flatMap((issue) => issue.entries.map((item) => item.id))
   ).size;
@@ -179,7 +177,7 @@ export default function ArchiveHealthPage() {
   );
 }
 
-function calculateIssues(): HealthIssue[] {
+function calculateIssues(archiveItems: ArchiveItem[]): HealthIssue[] {
   const duplicateKeys = new Set(
     Object.entries(
       archiveItems.reduce<Record<string, number>>((counts, item) => {
@@ -198,6 +196,7 @@ function calculateIssues(): HealthIssue[] {
       "Missing covers",
       "The cover image was not found.",
       "Run the metadata fetcher or add the correct cover file and image path.",
+      archiveItems,
       (item) => !item.image.trim()
     ),
     issue(
@@ -205,6 +204,7 @@ function calculateIssues(): HealthIssue[] {
       "Missing descriptions",
       "The metadata fetcher did not find a description.",
       "Add a description manually or retry metadata fetching with a better title match.",
+      archiveItems,
       (item) => !item.description.trim()
     ),
     issue(
@@ -212,6 +212,7 @@ function calculateIssues(): HealthIssue[] {
       "Missing creator / author",
       "Creator or author data is missing.",
       "Add the creator manually or retry metadata fetching.",
+      archiveItems,
       (item) => !item.creator?.trim()
     ),
     issue(
@@ -219,6 +220,7 @@ function calculateIssues(): HealthIssue[] {
       "Unrated Active/Completed Entries",
       "Planned, On Hold, and Dropped entries are ignored because they may not need ratings yet.",
       "Add a rating to the relevant import CSV, then run the archive update.",
+      archiveItems,
       (item) =>
         item.rating <= 0 && ratingExpectedStatuses.has(item.status)
     ),
@@ -227,6 +229,7 @@ function calculateIssues(): HealthIssue[] {
       "Duplicate route slugs",
       "Multiple entries share a route slug, which creates a route conflict.",
       "Give each conflicting entry a unique slug or rename one of the titles.",
+      archiveItems,
       (item) => duplicateKeys.has(`${item.category}:${item.slug}`)
     ),
     issue(
@@ -234,6 +237,7 @@ function calculateIssues(): HealthIssue[] {
       "Missing release year",
       "Release year metadata is missing.",
       "Retry metadata fetching or add the release year manually.",
+      archiveItems,
       (item) => item.category !== "Web Novel" && !item.releaseYear
     ),
     issue(
@@ -241,6 +245,7 @@ function calculateIssues(): HealthIssue[] {
       "Metadata Incomplete (Web Novel)",
       "Web Novel metadata sources were exhausted, but release year metadata is still unavailable.",
       "Retry metadata fetching later or add a trusted fallback metadata cache entry.",
+      archiveItems,
       (item) => item.category === "Web Novel" && !item.releaseYear
     ),
     issue(
@@ -248,6 +253,7 @@ function calculateIssues(): HealthIssue[] {
       "Broken image paths",
       "The image path points to a file that does not exist.",
       "Add the missing image file or update the entry to use the correct path.",
+      archiveItems,
       hasBrokenImagePath
     ),
   ];
@@ -258,6 +264,7 @@ function issue(
   label: string,
   description: string,
   howToFix: string,
+  archiveItems: ArchiveItem[],
   predicate: (item: ArchiveItem) => boolean
 ): HealthIssue {
   return {

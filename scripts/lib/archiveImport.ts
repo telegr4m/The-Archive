@@ -2,12 +2,12 @@ import { existsSync } from "node:fs";
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import ts from "typescript";
-import {
-  archiveItems,
-  type ArchiveCategory,
-  type ArchiveItem,
-  type ArchiveStatus,
-} from "../../app/data/archiveItems";
+import { archiveItems } from "../../app/data/archiveItems";
+import type {
+  ArchiveCategory,
+  ArchiveItem,
+  ArchiveStatus,
+} from "../../app/lib/archiveTypes";
 import { normalizeArchiveMetadata } from "./archiveMetadata";
 import { findReusableArchiveImage } from "./archiveImages";
 

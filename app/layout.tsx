@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
-import BackToTopButton from "./components/BackToTopButton";
+import SiteFooter from "./components/SiteFooter";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -20,6 +19,11 @@ export const metadata: Metadata = {
   title: "The Archive",
   description:
     "A personal archive of manga, manhwa, anime, web novels, and books.",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/images/icons/berserk-sacrifice-icon.png",
+  },
   openGraph: {
     title: "The Archive",
     description:
@@ -43,8 +47,7 @@ export default function RootLayout({
         <ScrollToTop />
         <Navbar />
         {children}
-        <Footer />
-        <BackToTopButton />
+        <SiteFooter />
       </body>
     </html>
   );

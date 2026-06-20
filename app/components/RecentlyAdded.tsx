@@ -1,14 +1,14 @@
 import Link from "next/link";
-import { archiveItems, getArchiveItemHref } from "../data/archiveItems";
+import { getArchiveItemHref } from "../lib/archiveRoutes";
 import {
   formatArchiveAddedDate,
-  getRecentlyAddedItems,
 } from "../data/recentlyAdded";
+import { getRecentlyAddedEntries } from "../lib/archiveRepository";
 import ArchiveCover from "./ArchiveCover";
 import ArchiveRating from "./ArchiveRating";
 
 export default function RecentlyAdded() {
-  const recentItems = getRecentlyAddedItems(archiveItems).slice(0, 5);
+  const recentItems = getRecentlyAddedEntries(5);
 
   return (
     <section className="bg-black px-5 py-20 text-white sm:px-6 md:px-8 md:py-28 lg:py-16">

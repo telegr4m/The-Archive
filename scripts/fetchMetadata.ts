@@ -2,11 +2,8 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import ts from "typescript";
-import {
-  archiveItems,
-  type ArchiveCategory,
-  type ArchiveItem,
-} from "../app/data/archiveItems";
+import { archiveItems } from "../app/data/archiveItems";
+import type { ArchiveCategory, ArchiveItem } from "../app/lib/archiveTypes";
 import webNovelFallbacks from "../data/metadata/web-novel-fallbacks.json";
 import { findReusableArchiveImage } from "./lib/archiveImages";
 import { cleanGenres } from "./lib/archiveMetadata";

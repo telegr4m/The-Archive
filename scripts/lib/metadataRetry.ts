@@ -1,4 +1,4 @@
-import type { ArchiveItem, ArchiveMetadataStatus } from "../../app/data/archiveItems";
+import type { ArchiveItem, ArchiveMetadataStatus } from "../../app/lib/archiveTypes";
 
 const METADATA_FINGERPRINT_VERSION = "v1";
 

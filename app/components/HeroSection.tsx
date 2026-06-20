@@ -1,3 +1,5 @@
+import Image from "next/image";
+import Link from "next/link";
 import AboutSection from "./AboutSection";
 import ArchiveTree from "./ArchiveTree";
 import RandomStoryButton from "./RandomStoryButton";
@@ -22,10 +24,27 @@ export default function HeroSection() {
             books that shaped my imagination.
           </p>
 
-          <RandomStoryButton
-            showIcon
-            className="group mb-7 inline-flex min-h-11 items-center gap-2.5 rounded-full border border-white/20 bg-black/30 px-5 py-2.5 text-sm font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:border-white/45 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 sm:mb-10"
-          />
+          <div className="mb-7 flex flex-wrap items-center gap-2.5 sm:mb-10 sm:gap-3">
+            <RandomStoryButton
+              showIcon
+              className="group inline-flex min-h-11 items-center gap-2.5 rounded-full border border-white/20 bg-black/30 px-5 py-2.5 text-sm font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:border-white/45 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+            />
+            <Link
+              href="/telegram"
+              scroll={true}
+              className="group inline-flex min-h-11 items-center gap-2.5 rounded-full border border-red-400/60 bg-red-950/35 px-5 py-2.5 text-sm font-semibold lowercase text-red-100 shadow-[0_0_24px_rgba(220,38,38,0.12)] transition-all duration-300 hover:-translate-y-0.5 hover:border-red-300 hover:bg-red-950/55 hover:shadow-[0_0_28px_rgba(239,68,68,0.22)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-200/70"
+            >
+              <Image
+                src="/images/icons/berserk-sacrifice-icon.png"
+                alt=""
+                width={18}
+                height={18}
+                className="h-[1.125rem] w-[1.125rem] object-contain transition-transform duration-300 group-hover:scale-110"
+                aria-hidden="true"
+              />
+              telegram
+            </Link>
+          </div>
 
           <div className="grid max-w-3xl grid-cols-2 gap-4 md:grid-cols-4 lg:gap-3">
             {[

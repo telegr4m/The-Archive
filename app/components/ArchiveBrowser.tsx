@@ -6,10 +6,8 @@ import {
   type ReactNode,
 } from "react";
 import Link from "next/link";
-import {
-  getArchiveItemHref,
-  type ArchiveItem,
-} from "../data/archiveItems";
+import { getArchiveItemHref } from "../lib/archiveRoutes";
+import type { ArchiveItem } from "../lib/archiveTypes";
 import ArchiveCover from "./ArchiveCover";
 import ArchiveRating from "./ArchiveRating";
 import { getArchiveCardDescription } from "../data/archivePresentation";
@@ -216,7 +214,7 @@ export default function ArchiveBrowser({
                   ))}
                 </div>
 
-                <p className="mt-3 hidden min-h-6 overflow-hidden text-ellipsis text-sm leading-6 text-gray-400 lg:mt-4 lg:line-clamp-2 lg:min-h-12 lg:block">
+                <p className="mt-3 line-clamp-2 min-h-12 overflow-hidden text-ellipsis text-sm leading-6 text-gray-400 lg:mt-4 lg:line-clamp-3 lg:min-h-[4.5rem]">
                   {getArchiveCardDescription(item)}
                 </p>
                 <span className="mt-auto hidden items-center gap-2 pt-3 text-xs font-medium uppercase tracking-[0.16em] text-gray-500 transition-colors duration-300 group-hover:text-white lg:flex lg:pt-5">

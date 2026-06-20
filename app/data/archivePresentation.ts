@@ -1,20 +1,10 @@
-import type { ArchiveItem } from "./archiveItems";
-
-const SUMMARY_LIMIT = 180;
+import type { ArchiveItem } from "../lib/archiveTypes";
 
 export function getArchiveCardDescription(item: ArchiveItem) {
   const source = cleanText(item.shortDescription ?? item.description);
 
   if (!source) return "Open this archive entry to explore its details.";
-  if (item.shortDescription) return source;
-
-  const firstSentence = source.match(/^.*?[.!?](?:\s|$)/)?.[0]?.trim();
-  const summary =
-    firstSentence && firstSentence.length <= SUMMARY_LIMIT
-      ? firstSentence
-      : truncateAtWord(source, SUMMARY_LIMIT);
-
-  return summary;
+  return source;
 }
 
 export function getArchiveDetailDescription(item: ArchiveItem) {
@@ -34,14 +24,4 @@ function cleanText(value: string) {
     .replace(/&#\d+;/g, " ")
     .replace(/\s+/g, " ")
     .trim();
-}
-
-function truncateAtWord(value: string, limit: number) {
-  if (value.length <= limit) return value;
-
-  const shortened = value.slice(0, limit + 1);
-  const lastSpace = shortened.lastIndexOf(" ");
-  const cut = lastSpace > limit * 0.7 ? lastSpace : limit;
-
-  return `${value.slice(0, cut).trimEnd()}...`;
 }

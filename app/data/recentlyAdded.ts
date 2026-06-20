@@ -1,4 +1,4 @@
-import type { ArchiveItem } from "./archiveItems";
+import type { ArchiveItem } from "../lib/archiveTypes";
 
 type ArchiveItemWithAddedAt = ArchiveItem & {
   addedAt?: string;

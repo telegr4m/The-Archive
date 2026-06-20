@@ -5,10 +5,8 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import {
-  getArchiveItemHref,
-  type ArchiveItem,
-} from "../data/archiveItems";
+import { getArchiveItemHref } from "../lib/archiveRoutes";
+import type { ArchiveItem } from "../lib/archiveTypes";
 import { getArchiveCardDescription } from "../data/archivePresentation";
 
 const ROTATION_INTERVAL = 5000;
@@ -132,7 +130,7 @@ export default function FeaturedStory({ featuredItems }: FeaturedStoryProps) {
           <h2 className="mt-3 break-words text-3xl font-bold tracking-tight sm:mt-4 sm:text-4xl lg:text-4xl">
             {activeItem.title}
           </h2>
-          <p className="mt-4 line-clamp-2 overflow-hidden text-ellipsis text-sm leading-6 text-gray-300 sm:text-base sm:leading-7">
+          <p className="mt-4 line-clamp-2 overflow-hidden text-ellipsis text-sm leading-6 text-gray-300 sm:text-base sm:leading-7 lg:line-clamp-4">
             {getArchiveCardDescription(activeItem)}
           </p>
           <div className="mt-4 flex max-h-8 flex-wrap gap-1.5 overflow-hidden sm:mt-6 sm:max-h-none sm:gap-2">

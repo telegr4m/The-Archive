@@ -1,10 +1,8 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import ts from "typescript";
-import {
-  archiveItems,
-  type ArchiveCategory,
-} from "../app/data/archiveItems";
+import { archiveItems } from "../app/data/archiveItems";
+import type { ArchiveCategory } from "../app/lib/archiveTypes";
 import { parseCsvRecords, slugify } from "./lib/archiveImport";
 
 const ROOT = process.cwd();

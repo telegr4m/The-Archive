@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import type { ArchiveCategory, ArchiveItem } from "../data/archiveItems";
+import type { ArchiveCategory, ArchiveItem } from "../lib/archiveTypes";
 import ArchiveBrowser from "./ArchiveBrowser";
 import ArchiveStats from "./ArchiveStats";
 import Breadcrumb from "./Breadcrumb";

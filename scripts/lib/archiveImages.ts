@@ -1,4 +1,4 @@
-import type { ArchiveItem } from "../../app/data/archiveItems";
+import type { ArchiveItem } from "../../app/lib/archiveTypes";
 
 export function normalizeArchiveTitle(value: string) {
   return value

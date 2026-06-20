@@ -1,5 +1,5 @@
 import path from "node:path";
-import type { ArchiveItem } from "../../app/data/archiveItems";
+import type { ArchiveItem } from "../../app/lib/archiveTypes";
 
 export type ArchiveSource = {
   category: ArchiveItem["category"];

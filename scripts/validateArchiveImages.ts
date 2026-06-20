@@ -1,7 +1,8 @@
 import { existsSync, statSync } from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import { archiveItems, type ArchiveItem } from "../app/data/archiveItems";
+import { archiveItems } from "../app/data/archiveItems";
+import type { ArchiveItem } from "../app/lib/archiveTypes";
 
 const ROOT = process.cwd();
 

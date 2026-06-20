@@ -1,0 +1,113 @@
+.gate {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.content {
+  transition:
+    transform 650ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 650ms ease;
+}
+
+.gate:active .content {
+  transform: scale(0.97);
+}
+
+.symbol {
+  filter: drop-shadow(0 0 12px rgb(127 29 29 / 45%));
+  animation:
+    telegram-symbol-float 5.5s ease-in-out infinite,
+    telegram-symbol-pulse 3.2s ease-in-out infinite,
+    telegram-symbol-flicker 6s linear infinite;
+  transition: filter 200ms ease;
+}
+
+.particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  bottom: -5%;
+  border-radius: 999px;
+  background: rgb(153 27 27 / 60%);
+  box-shadow: 0 0 8px rgb(127 29 29 / 55%);
+  animation-name: telegram-particle-drift;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.gate:hover .symbol,
+.gate:focus-visible .symbol {
+  filter:
+    drop-shadow(0 0 16px rgb(185 28 28 / 70%))
+    drop-shadow(0 0 34px rgb(127 29 29 / 40%));
+}
+
+@keyframes telegram-symbol-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1deg) scale(1);
+  }
+  50% {
+    transform: translateY(-9px) rotate(1.5deg) scale(1.025);
+  }
+}
+
+@keyframes telegram-symbol-pulse {
+  0%,
+  100% {
+    opacity: 0.82;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes telegram-symbol-flicker {
+  0%,
+  17%,
+  19%,
+  64%,
+  66%,
+  100% {
+    filter: drop-shadow(0 0 12px rgb(127 29 29 / 45%));
+  }
+  18%,
+  65% {
+    filter: drop-shadow(0 0 20px rgb(185 28 28 / 68%));
+  }
+}
+
+@keyframes telegram-particle-drift {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.65);
+  }
+  18% {
+    opacity: 0.55;
+  }
+  75% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(18px, -110vh, 0) scale(1.15);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .symbol {
+    animation: none;
+    opacity: 1;
+  }
+
+  .particle {
+    display: none;
+  }
+
+  .content {
+    transition-duration: 1ms;
+  }
+}

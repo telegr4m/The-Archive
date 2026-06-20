@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import FavoritesBrowser from "../components/FavoritesBrowser";
-import { archiveItems } from "../data/archiveItems";
-import { getFavoriteArchiveItems } from "../data/favorites";
+import { getFavoriteEntries } from "../lib/archiveRepository";
 
 export const metadata: Metadata = {
   title: "Favorites | The Archive",
@@ -9,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function FavoritesPage() {
-  return <FavoritesBrowser items={getFavoriteArchiveItems(archiveItems)} />;
+  return <FavoritesBrowser items={getFavoriteEntries()} />;
 }

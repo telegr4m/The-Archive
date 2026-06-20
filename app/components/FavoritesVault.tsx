@@ -1,15 +1,13 @@
 import Link from "next/link";
-import {
-  archiveItems,
-  getArchiveItemHref,
-} from "../data/archiveItems";
+import { getArchiveItemHref } from "../lib/archiveRoutes";
+import type { ArchiveItem } from "../lib/archiveTypes";
 import FavoriteTiltCard from "./FavoriteTiltCard";
 import FavoriteVaultImage from "./FavoriteVaultImage";
 import { getArchiveCardDescription } from "../data/archivePresentation";
 import ArchiveRating from "./ArchiveRating";
-import { getFavoriteArchiveItems } from "../data/favorites";
+import { getFavoriteEntries } from "../lib/archiveRepository";
 
-const favorites = mixFavorites(getFavoriteArchiveItems(archiveItems)).slice(0, 8);
+const favorites = mixFavorites(getFavoriteEntries()).slice(0, 8);
 
 export default function FavoritesVault() {
   return (
@@ -49,8 +47,8 @@ export default function FavoritesVault() {
               <FavoriteTiltCard>
                 <FavoriteVaultImage image={item.image} title={item.title} />
 
-                <div className="absolute inset-x-0 bottom-0 bg-black/90 p-3 lg:p-5">
-                  <div className="mb-2 flex items-center justify-between gap-2 text-[0.55rem] uppercase tracking-[0.12em] text-purple-300 lg:mb-3 lg:gap-3 lg:text-xs lg:tracking-[0.3em]">
+                <div className="absolute inset-x-0 bottom-0 flex h-32 flex-col bg-gradient-to-t from-black via-black/95 to-black/80 p-3 lg:h-44">
+                  <div className="mb-1 flex items-center justify-between gap-2 text-[0.55rem] uppercase tracking-[0.12em] text-purple-300 lg:gap-3 lg:text-xs lg:tracking-[0.3em]">
                     <span>{item.category}</span>
                     <ArchiveRating
                       rating={item.rating}
@@ -58,14 +56,14 @@ export default function FavoritesVault() {
                     />
                   </div>
 
-                  <h3 className="line-clamp-2 text-sm font-bold leading-5 lg:mb-3 lg:text-2xl lg:leading-normal">
+                  <h3 className="line-clamp-2 min-h-10 text-sm font-bold leading-5 lg:min-h-12 lg:text-xl lg:leading-6">
                     {item.title}
                   </h3>
 
-                  <p className="hidden min-h-10 overflow-hidden text-ellipsis text-sm text-gray-300 lg:line-clamp-2">
+                  <p className="line-clamp-2 min-h-10 overflow-hidden text-ellipsis text-sm text-gray-300">
                     {getArchiveCardDescription(item)}
                   </p>
-                  <span className="mt-4 hidden items-center gap-2 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-gray-400 transition-colors duration-300 group-hover:text-white lg:flex">
+                  <span className="mt-auto hidden items-center gap-2 pt-2 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-gray-400 transition-colors duration-300 group-hover:text-white lg:flex">
                     View Details <span aria-hidden="true">-&gt;</span>
                   </span>
                 </div>
@@ -78,8 +76,8 @@ export default function FavoritesVault() {
   );
 }
 
-function mixFavorites(items: typeof archiveItems) {
-  const buckets = new Map<string, typeof archiveItems>();
+function mixFavorites(items: ArchiveItem[]) {
+  const buckets = new Map<string, ArchiveItem[]>();
 
   for (const item of items) {
     const bucket = buckets.get(item.category) ?? [];

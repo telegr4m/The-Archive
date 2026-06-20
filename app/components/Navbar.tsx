@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -78,6 +79,7 @@ export default function Navbar() {
             );
           })}
           <SearchLink isActive={pathname === "/search"} />
+          <TelegramLink isActive={pathname === "/telegram"} />
         </div>
 
         <div className="relative z-10 lg:hidden">
@@ -132,13 +134,53 @@ export default function Navbar() {
               </Link>
             );
           })}
-          <SearchLink
-            isActive={pathname === "/search"}
-            onClick={() => setIsOpen(false)}
-          />
+          <div className="flex items-center gap-1">
+            <SearchLink
+              isActive={pathname === "/search"}
+              onClick={() => setIsOpen(false)}
+            />
+            <TelegramLink
+              isActive={pathname === "/telegram"}
+              onClick={() => setIsOpen(false)}
+            />
+          </div>
         </div>
       </div>
     </header>
+  );
+}
+
+function TelegramLink({
+  isActive,
+  onClick,
+}: {
+  isActive: boolean;
+  onClick?: () => void;
+}) {
+  return (
+    <Link
+      href="/telegram"
+      scroll={true}
+      aria-label="telegram profile"
+      onClick={onClick}
+      className={`group relative flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:scale-105 ${
+        isActive ? "text-red-200" : "text-gray-400 hover:text-red-200"
+      }`}
+    >
+      <Image
+        src="/images/icons/berserk-sacrifice-icon.png"
+        alt=""
+        width={19}
+        height={19}
+        className="h-[1.15rem] w-[1.15rem] object-contain opacity-80 transition-opacity duration-300 group-hover:opacity-100"
+        aria-hidden="true"
+      />
+      <span
+        className={`absolute bottom-0 h-px w-5 bg-red-400 transition-transform duration-300 ${
+          isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+        }`}
+      />
+    </Link>
   );
 }
 

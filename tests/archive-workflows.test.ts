@@ -3,8 +3,30 @@ import { mkdtemp, readdir, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
-import { archiveItems, type ArchiveItem } from "../app/data/archiveItems";
+import { archiveItems } from "../app/data/archiveItems";
 import { getRelatedStories } from "../app/data/relatedStories";
+import { ARCHIVE_CATEGORIES } from "../app/lib/archiveConstants";
+import {
+  archiveCategoryPaths,
+  getArchiveCategoryFromPath,
+  getArchiveCategoryPath,
+  getArchiveItemHref,
+} from "../app/lib/archiveRoutes";
+import type { ArchiveCategory, ArchiveItem } from "../app/lib/archiveTypes";
+import {
+  getAllEntries,
+  getEntriesByCategory,
+  getEntryBySlug,
+  getFavoriteEntries,
+  getFeaturedEntries,
+  getRelatedEntries,
+  searchEntries,
+} from "../app/lib/archiveRepository";
+import {
+  archiveEntryCreateSchema,
+  archiveEntryUpdateSchema,
+  userProfileSchema,
+} from "../app/lib/archiveSchemas";
 import { createArchiveBackup } from "../scripts/exportArchive";
 import {
   findDuplicateSlugs,
@@ -97,8 +119,19 @@ test("related entry scoring never includes the current entry", () => {
   const current = archiveItems[0];
   assert.ok(current);
 
-  const related = getRelatedStories(current, 5);
+  const related = getRelatedStories(current, archiveItems, 5);
   assert.ok(related.every((item) => item.slug !== current.slug));
+});
+
+test("archive route helpers preserve existing category routes", () => {
+  const sample = archiveItems[0];
+  const category: ArchiveCategory = "Manga";
+
+  assert.ok(ARCHIVE_CATEGORIES.includes(category));
+  assert.equal(archiveCategoryPaths.Manga, "manga");
+  assert.equal(getArchiveCategoryPath(category), "manga");
+  assert.equal(getArchiveCategoryFromPath("web-novels"), "Web Novel");
+  assert.equal(getArchiveItemHref(sample), `/manga/${sample.slug}`);
 });
 
 test("metadata cleanup removes provider artifacts and fixes Manhwa formats", () => {
@@ -270,5 +303,94 @@ test("partial Web Novel metadata is cacheable and fingerprints title changes", (
   assert.notEqual(
     getMetadataFingerprint(item),
     getMetadataFingerprint({ ...item, title: `${item.title} Revised` })
+  );
+});
+
+test("static archive repository returns all entries", () => {
+  assert.equal(getAllEntries().length, archiveItems.length);
+  assert.equal(getAllEntries()[0]?.id, archiveItems[0]?.id);
+});
+
+test("static archive repository filters by category", () => {
+  const manga = getEntriesByCategory("Manga");
+
+  assert.ok(manga.length > 0);
+  assert.ok(manga.every((item) => item.category === "Manga"));
+});
+
+test("static archive repository finds entries by route slug", () => {
+  const sample = archiveItems[0];
+  const found = getEntryBySlug("manga", sample.slug);
+
+  assert.equal(found?.id, sample.id);
+});
+
+test("static archive repository filters favorites and featured entries", () => {
+  const favorites = getFavoriteEntries();
+  const featured = getFeaturedEntries();
+
+  assert.ok(favorites.length > 0);
+  assert.ok(featured.length > 0);
+  assert.ok(favorites.every((item) => item.favorite));
+  assert.ok(featured.every((item) => item.featured));
+});
+
+test("static archive repository search returns matching entries", () => {
+  const sample = archiveItems.find((item) => item.title === "Berserk");
+  assert.ok(sample);
+
+  const results = searchEntries("Berserk", { category: "Manga" });
+  assert.ok(results.some((item) => item.id === sample.id));
+  assert.ok(results.every((item) => item.category === "Manga"));
+});
+
+test("static archive repository related entries exclude the current entry", () => {
+  const current = archiveItems[0];
+  const related = getRelatedEntries(current, 5);
+
+  assert.ok(related.length > 0);
+  assert.ok(related.every((item) => item.id !== current.id));
+});
+
+test("archive validation schemas accept valid payloads", () => {
+  const entry = archiveEntryCreateSchema.parse({
+    title: "A New Entry",
+    category: "Manga",
+    status: "Planned",
+    rating: 0,
+    favorite: false,
+    featured: false,
+    visibility: "private",
+    genres: ["Action"],
+  });
+  const update = archiveEntryUpdateSchema.parse({ rating: 8 });
+  const profile = userProfileSchema.parse({
+    username: "archive_user",
+    displayName: "Archive User",
+    archiveVisibility: "public",
+  });
+
+  assert.equal(entry.title, "A New Entry");
+  assert.equal(update.rating, 8);
+  assert.equal(profile.role, "user");
+});
+
+test("archive validation schemas reject invalid payloads", () => {
+  assert.throws(() =>
+    archiveEntryCreateSchema.parse({
+      title: "",
+      category: "Film",
+      status: "Done",
+      rating: 12,
+      visibility: "friends",
+    })
+  );
+  assert.throws(() => archiveEntryUpdateSchema.parse({}));
+  assert.throws(() =>
+    userProfileSchema.parse({
+      username: "bad username!",
+      displayName: "",
+      archiveVisibility: "private",
+    })
   );
 });

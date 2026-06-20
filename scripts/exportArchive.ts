@@ -1,11 +1,8 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import {
-  archiveItems,
-  type ArchiveCategory,
-  type ArchiveItem,
-} from "../app/data/archiveItems";
+import { archiveItems } from "../app/data/archiveItems";
+import type { ArchiveCategory, ArchiveItem } from "../app/lib/archiveTypes";
 import { cleanupSafetyBackups } from "./lib/backupRetention";
 
 const ROOT = process.cwd();

@@ -1,10 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import {
-  archiveItems,
-  getArchiveItemHref,
-} from "../data/archiveItems";
+import { getArchiveItemHref } from "../lib/archiveRoutes";
+import { getAllEntries } from "../lib/archiveRepository";
 
 type RandomStoryButtonProps = {
   className?: string;
@@ -18,6 +16,7 @@ export default function RandomStoryButton({
   const router = useRouter();
 
   function openRandomStory() {
+    const archiveItems = getAllEntries();
     const randomItem =
       archiveItems[Math.floor(Math.random() * archiveItems.length)];
 

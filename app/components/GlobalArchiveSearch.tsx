@@ -3,61 +3,48 @@
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
-import { archiveItems, getArchiveItemHref } from "../data/archiveItems";
+import { getArchiveItemHref } from "../lib/archiveRoutes";
+import type { ArchiveCategory, ArchiveStatus } from "../lib/archiveTypes";
+import { getAllEntries, searchEntries } from "../lib/archiveRepository";
 import ArchiveCover from "./ArchiveCover";
 import ArchiveRating from "./ArchiveRating";
 import RandomStoryButton from "./RandomStoryButton";
 import { getArchiveCardDescription } from "../data/archivePresentation";
 
+type CategoryFilter = ArchiveCategory | "All";
+type StatusFilter = ArchiveStatus | "All";
+
 export default function GlobalArchiveSearch() {
   const headingRef = useRef<HTMLDivElement>(null);
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState("All");
-  const [status, setStatus] = useState("All");
+  const [category, setCategory] = useState<CategoryFilter>("All");
+  const [status, setStatus] = useState<StatusFilter>("All");
   const [genre, setGenre] = useState("All");
   const [minRating, setMinRating] = useState(0);
   const [maxRating, setMaxRating] = useState(10);
+  const archiveItems = getAllEntries();
 
   const categories = useMemo(
     () => [...new Set(archiveItems.map((item) => item.category))].sort(),
-    []
+    [archiveItems]
   );
   const statuses = useMemo(
     () => [...new Set(archiveItems.map((item) => item.status))].sort(),
-    []
+    [archiveItems]
   );
   const genres = useMemo(
     () => [...new Set(archiveItems.flatMap((item) => item.genres))].sort(),
-    []
+    [archiveItems]
   );
 
   const results = useMemo(() => {
-    const normalizedQuery = query.trim().toLocaleLowerCase();
-
-    return archiveItems
-      .filter((item) => {
-        const searchableText = [
-          item.title,
-          item.category,
-          item.status,
-          item.creator,
-          item.description,
-          ...item.genres,
-        ]
-          .join(" ")
-          .toLocaleLowerCase();
-
-        return (
-          (normalizedQuery.length === 0 ||
-            searchableText.includes(normalizedQuery)) &&
-          (category === "All" || item.category === category) &&
-          (status === "All" || item.status === status) &&
-          (genre === "All" || item.genres.includes(genre)) &&
-          item.rating >= minRating &&
-          item.rating <= maxRating
-        );
-      })
-      .sort((a, b) => b.rating - a.rating || a.title.localeCompare(b.title));
+    return searchEntries(query, {
+      category,
+      status,
+      genre,
+      minRating,
+      maxRating,
+    });
   }, [category, genre, maxRating, minRating, query, status]);
 
   useEffect(() => {
@@ -124,14 +111,14 @@ export default function GlobalArchiveSearch() {
               value={category}
               options={categories}
               className={controlClassName}
-              onChange={setCategory}
+              onChange={(value) => setCategory(value as CategoryFilter)}
             />
             <SearchSelect
               label="Status"
               value={status}
               options={statuses}
               className={controlClassName}
-              onChange={setStatus}
+              onChange={(value) => setStatus(value as StatusFilter)}
             />
             <SearchSelect
               label="Genre"
@@ -240,7 +227,7 @@ export default function GlobalArchiveSearch() {
                       </span>
                     ))}
                   </div>
-                  <p className="mt-3 hidden min-h-6 overflow-hidden text-ellipsis text-sm leading-6 text-gray-400 lg:mt-4 lg:line-clamp-2 lg:min-h-12 lg:block">
+                  <p className="mt-3 line-clamp-2 min-h-12 overflow-hidden text-ellipsis text-sm leading-6 text-gray-400 lg:mt-4 lg:line-clamp-3 lg:min-h-[4.5rem]">
                     {getArchiveCardDescription(item)}
                   </p>
                   <span className="mt-auto hidden items-center gap-2 pt-3 text-xs font-medium uppercase tracking-[0.16em] text-gray-500 transition-colors duration-300 group-hover:text-white lg:flex lg:pt-5">

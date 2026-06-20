@@ -1,4 +1,4 @@
-import { archiveItems, type ArchiveItem } from "./archiveItems";
+import type { ArchiveItem } from "../lib/archiveTypes";
 
 const weakWords = new Set([
   "a",
@@ -28,8 +28,12 @@ const affinityGroups = [
   ]),
 ];
 
-export function getRelatedStories(item: ArchiveItem, limit = 4) {
-  const candidates = archiveItems.filter((candidate) => candidate.id !== item.id);
+export function getRelatedStories(
+  item: ArchiveItem,
+  allEntries: readonly ArchiveItem[],
+  limit = 4
+) {
+  const candidates = allEntries.filter((candidate) => candidate.id !== item.id);
   const ranked = candidates
     .map((candidate) => scoreRelatedStory(item, candidate))
     .filter((match) => match.score > 0)

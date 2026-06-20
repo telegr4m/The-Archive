@@ -2,11 +2,9 @@
 
 import Link from "next/link";
 import { useMemo } from "react";
-import {
-  getArchiveItemHref,
-  type ArchiveItem,
-} from "../data/archiveItems";
-import { getRelatedStories } from "../data/relatedStories";
+import { getArchiveItemHref } from "../lib/archiveRoutes";
+import type { ArchiveItem } from "../lib/archiveTypes";
+import { getRelatedEntries } from "../lib/archiveRepository";
 import ArchiveCover from "./ArchiveCover";
 import ArchiveRating from "./ArchiveRating";
 
@@ -15,7 +13,7 @@ type RelatedStoriesProps = {
 };
 
 export default function RelatedStories({ item }: RelatedStoriesProps) {
-  const relatedItems = useMemo(() => getRelatedStories(item, 5), [item]);
+  const relatedItems = useMemo(() => getRelatedEntries(item, 5), [item]);
 
   if (relatedItems.length === 0) return null;
 

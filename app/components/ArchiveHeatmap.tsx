@@ -3,10 +3,8 @@
 import { useEffect, useMemo, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import {
-  archiveItems,
-  type ArchiveCategory,
-} from "../data/archiveItems";
+import type { ArchiveCategory } from "../lib/archiveTypes";
+import { getAllEntries } from "../lib/archiveRepository";
 
 const categories: { label: string; category: ArchiveCategory }[] = [
   { label: "Manga", category: "Manga" },
@@ -18,6 +16,7 @@ const categories: { label: string; category: ArchiveCategory }[] = [
 
 export default function ArchiveHeatmap() {
   const sectionRef = useRef<HTMLElement>(null);
+  const archiveItems = getAllEntries();
   const breakdown = useMemo(
     () =>
       categories.map(({ label, category }) => {
@@ -32,7 +31,7 @@ export default function ArchiveHeatmap() {
             archiveItems.length === 0 ? 0 : (count / archiveItems.length) * 100,
         };
       }),
-    []
+    [archiveItems]
   );
 
   useEffect(() => {

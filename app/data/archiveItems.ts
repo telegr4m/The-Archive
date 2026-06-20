@@ -1,61 +1,12 @@
-export type ArchiveCategory =
-  | "Manga"
-  | "Manhwa"
-  | "Anime"
-  | "Web Novel"
-  | "Book";
+import type { ArchiveCategory, ArchiveItem } from "../lib/archiveTypes";
 
-export type ArchiveStatus =
-  | "Completed"
-  | "Currently Reading"
-  | "Currently Watching"
-  | "On Hold"
-  | "Dropped"
-  | "Planned";
-
-export type ArchiveVisibility = "public" | "private" | "unlisted";
-export type ArchiveMetadataStatus = "complete" | "partial" | "needs-review";
-
-export type ArchiveItem = {
-  id: string;
-  slug: string;
-  title: string;
-  category: ArchiveCategory;
-  status: ArchiveStatus;
-  rating: number;
-  image: string;
-  genres: string[];
-  description: string;
-  shortDescription?: string;
-  recommendLevel?: string;
-  formatLabel?: string;
-  creator?: string;
-  studio?: string;
-  favoriteCharacter?: string;
-  featured?: boolean;
-  featuredImagePosition?: string;
-  detailImagePosition?: string;
-  favorite?: boolean;
-  releaseYear?: number;
-  sourceStatus?: string;
-  metadataStatus?: ArchiveMetadataStatus;
-  metadataFingerprint?: string;
-  // Present only when an entry is managed by one of the CSV import files.
-  importSource?: string;
-  createdAt: string;
-  // Omitted ownership fields belong to the current default personal archive.
-  ownerId?: string;
-  visibility?: ArchiveVisibility;
-  createdBy?: string;
-};
-
-export const archiveCategoryPaths: Record<ArchiveCategory, string> = {
-  Manga: "manga",
-  Manhwa: "manhwa",
-  Anime: "anime",
-  "Web Novel": "web-novels",
-  Book: "books",
-};
+export type {
+  ArchiveCategory,
+  ArchiveItem,
+  ArchiveMetadataStatus,
+  ArchiveStatus,
+  ArchiveVisibility,
+} from "../lib/archiveTypes";
 
 export const archiveItems: ArchiveItem[] = [
   {
@@ -4761,8 +4712,8 @@ export const archiveItems: ArchiveItem[] = [
     "sourceStatus": "Releasing",
     "releaseYear": 2022,
     "importSource": "webnovel-import.csv",
-    metadataFingerprint: "v1|Web Novel|shadow-slave|shadow slave",
-    metadataStatus: "partial"
+    "metadataFingerprint": "v1|Web Novel|shadow-slave|shadow slave",
+    "metadataStatus": "partial"
   },
   {
     "id": "web-novel-reverend-insanity",
@@ -4789,8 +4740,8 @@ export const archiveItems: ArchiveItem[] = [
     "releaseYear": 2012,
     "favoriteCharacter": "Fang Yuan",
     "importSource": "webnovel-import.csv",
-    metadataFingerprint: "v1|Web Novel|reverend-insanity|reverend insanity",
-    metadataStatus: "complete"
+    "metadataFingerprint": "v1|Web Novel|reverend-insanity|reverend insanity",
+    "metadataStatus": "complete"
   },
   {
     "id": "web-novel-a-regressor-s-tale-of-cultivation",
@@ -4815,8 +4766,8 @@ export const archiveItems: ArchiveItem[] = [
     "releaseYear": 2023,
     "favoriteCharacter": "Seo Eun-hyun",
     "importSource": "webnovel-import.csv",
-    metadataFingerprint: "v1|Web Novel|a-regressor-s-tale-of-cultivation|a regressor's tale of cultivation",
-    metadataStatus: "complete"
+    "metadataFingerprint": "v1|Web Novel|a-regressor-s-tale-of-cultivation|a regressor's tale of cultivation",
+    "metadataStatus": "complete"
   },
   {
     "id": "web-novel-lord-of-the-mysteries",
@@ -4842,8 +4793,8 @@ export const archiveItems: ArchiveItem[] = [
     "formatLabel": "Web Novel",
     "releaseYear": 2018,
     "importSource": "webnovel-import.csv",
-    metadataFingerprint: "v1|Web Novel|lord-of-the-mysteries|lord of the mysteries",
-    metadataStatus: "complete"
+    "metadataFingerprint": "v1|Web Novel|lord-of-the-mysteries|lord of the mysteries",
+    "metadataStatus": "complete"
   },
   {
     "id": "web-novel-kill-the-sun",
@@ -4862,8 +4813,9 @@ export const archiveItems: ArchiveItem[] = [
     "formatLabel": "Web Novel",
     "sourceStatus": "Finished",
     "importSource": "webnovel-import.csv",
-    metadataFingerprint: "v1|Web Novel|kill-the-sun|kill the sun",
-    metadataStatus: "needs-review"
+    "metadataFingerprint": "v1|Web Novel|kill-the-sun|kill the sun",
+    "metadataStatus": "partial",
+    releaseYear: 2023
   },
   {
     "id": "web-novel-omniscient-reader-s-viewpoint",
@@ -4887,8 +4839,8 @@ export const archiveItems: ArchiveItem[] = [
     "formatLabel": "Web Novel",
     "releaseYear": 2018,
     "importSource": "webnovel-import.csv",
-    metadataFingerprint: "v1|Web Novel|omniscient-reader-s-viewpoint|omniscient reader's viewpoint",
-    metadataStatus: "complete"
+    "metadataFingerprint": "v1|Web Novel|omniscient-reader-s-viewpoint|omniscient reader's viewpoint",
+    "metadataStatus": "complete"
   },
   {
     "id": "web-novel-the-beginning-after-the-end",
@@ -4912,8 +4864,8 @@ export const archiveItems: ArchiveItem[] = [
     "formatLabel": "Web Novel",
     "releaseYear": 2015,
     "importSource": "webnovel-import.csv",
-    metadataFingerprint: "v1|Web Novel|the-beginning-after-the-end|the beginning after the end",
-    metadataStatus: "complete"
+    "metadataFingerprint": "v1|Web Novel|the-beginning-after-the-end|the beginning after the end",
+    "metadataStatus": "complete"
   },
   {
     "id": "web-novel-renegade-immortal",
@@ -4938,8 +4890,8 @@ export const archiveItems: ArchiveItem[] = [
     "formatLabel": "Web Novel",
     "releaseYear": 2009,
     "importSource": "webnovel-import.csv",
-    metadataFingerprint: "v1|Web Novel|renegade-immortal|renegade immortal",
-    metadataStatus: "complete"
+    "metadataFingerprint": "v1|Web Novel|renegade-immortal|renegade immortal",
+    "metadataStatus": "complete"
   },
   {
     "id": "book-the-lightning-thief",
@@ -5498,15 +5450,4 @@ export const archiveItems: ArchiveItem[] = [
 
 export function getArchiveItemsByCategory(category: ArchiveCategory) {
   return archiveItems.filter((item) => item.category === category);
-}
-
-export function getArchiveItemHref(item: ArchiveItem) {
-  return `/${archiveCategoryPaths[item.category]}/${item.slug}`;
-}
-
-export function getArchiveItemByRoute(categoryPath: string, slug: string) {
-  return archiveItems.find(
-    (item) =>
-      archiveCategoryPaths[item.category] === categoryPath && item.slug === slug
-  );
 }
