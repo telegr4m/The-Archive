@@ -7,7 +7,7 @@ import { getArchiveCardDescription } from "../data/archivePresentation";
 import ArchiveRating from "./ArchiveRating";
 import { getFavoriteEntries } from "../lib/archiveRepository";
 
-const favorites = mixFavorites(getFavoriteEntries()).slice(0, 8);
+const favorites = mixFavorites(getFavoriteEntries()).slice(0, 4);
 
 export default function FavoritesVault() {
   return (

@@ -915,7 +915,7 @@ export const archiveItems: ArchiveItem[] = [
     "slug": "murim-rpg-simulation",
     "title": "Murim RPG Simulation",
     "category": "Manhwa",
-    "status": "Planned",
+    "status": "Currently Reading",
     "rating": 0,
     "image": "/images/manhwa/murim-rpg-simulation.jpg",
     "genres": [
@@ -1275,7 +1275,7 @@ export const archiveItems: ArchiveItem[] = [
     "slug": "space-cheon-ma-3077",
     "title": "Space Cheon-ma 3077",
     "category": "Manhwa",
-    "status": "Planned",
+    "status": "Completed",
     "rating": 0,
     "image": "/images/manhwa/space-cheon-ma-3077.jpg",
     "genres": [
@@ -4801,7 +4801,7 @@ export const archiveItems: ArchiveItem[] = [
     "slug": "kill-the-sun",
     "title": "Kill the Sun",
     "category": "Web Novel",
-    "status": "Planned",
+    "status": "Completed",
     "rating": 0,
     "image": "/images/web-novels/kill-the-sun.jpg",
     "genres": [],
@@ -4815,7 +4815,7 @@ export const archiveItems: ArchiveItem[] = [
     "importSource": "webnovel-import.csv",
     "metadataFingerprint": "v1|Web Novel|kill-the-sun|kill the sun",
     "metadataStatus": "partial",
-    releaseYear: 2023
+    "releaseYear": 2023
   },
   {
     "id": "web-novel-omniscient-reader-s-viewpoint",
@@ -5445,6 +5445,59 @@ export const archiveItems: ArchiveItem[] = [
     "formatLabel": "Book",
     "releaseYear": 2018,
     "importSource": "book-import.csv"
+  },
+  {
+    "id": "manhwa-reality-quest",
+    "slug": "reality-quest",
+    "title": "Reality Quest",
+    "category": "Manhwa",
+    "status": "Currently Reading",
+    "rating": 0,
+    "image": "/images/manhwa/reality-quest.jpg",
+    "genres": [
+    "Action",
+    "Long Strip",
+    "Drama",
+    "School Life",
+    "Fantasy",
+    "Delinquents",
+    "Full Color"
+  ],
+    "description": "Ha Do-wan is a bullied gamer, whose bullies force him to grind to obtain in-game items for them. After one such bully demands that Dowan obtain an impossibly rare item for him or be beaten in front of the prettiest girl in school, Dowan games day and night for a week until he drops dead from exhaustion. However, as soon as he dies, he respawns back in his classroom one week before his death. Everything is the same as it was before, except now he has all the skills he’s acquired from the games he’s played in real life! Will Dowan be able to use his newfound abilities and gamified existence to defeat his bullies?",
+    "featured": false,
+    "favorite": false,
+    "importSource": "manhwa-import.csv",
+    "createdAt": "2026-07-05",
+    "favoriteCharacter": "Dowan Ha",
+    sourceStatus: "Ongoing",
+    creator: "Lee Joo-woon, Taeseong",
+    formatLabel: "Manhwa",
+    releaseYear: 2021
+  },
+  {
+    "id": "web-novel-sword-god-in-a-world-of-magic",
+    "slug": "sword-god-in-a-world-of-magic",
+    "title": "Sword God in a World of Magic",
+    "category": "Web Novel",
+    "status": "Currently Reading",
+    "rating": 0,
+    "image": "/images/web-novels/sword-god-in-a-world-of-magic.jpg",
+    "genres": [
+      "Action",
+      "Adventure",
+      "Fantasy"
+    ],
+    "description": "The God of a magic-dominated world grows bored watching everyone follow the same path of power, so he pulls Alex from Earth into his realm. Reborn with a brutal mission, Alex sets out to prove there is more than magic by walking the path of the sword.",
+    "formatLabel": "Web Novel",
+    "creator": "Warmaisach",
+    "sourceStatus": "Completed",
+    "featured": false,
+    "favorite": false,
+    "importSource": "webnovel-import.csv",
+    "createdAt": "2026-07-05",
+    "favoriteCharacter": "Shang",
+    "releaseYear": 2021,
+    "metadataStatus": "partial"
   }
 ];
 

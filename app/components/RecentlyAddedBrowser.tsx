@@ -4,11 +4,11 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { getArchiveItemHref } from "../lib/archiveRoutes";
 import type { ArchiveCategory, ArchiveItem } from "../lib/archiveTypes";
-import { getArchiveCardDescription } from "../data/archivePresentation";
 import {
-  formatArchiveAddedDate,
-  getRecentlyAddedItems,
-} from "../data/recentlyAdded";
+  formatArchiveChangedDate,
+  getArchiveActivityVerb,
+  recentArchiveChanges,
+} from "../data/recentChanges";
 import ArchiveCover from "./ArchiveCover";
 import ArchiveRating from "./ArchiveRating";
 import Breadcrumb from "./Breadcrumb";
@@ -35,13 +35,25 @@ export default function RecentlyAddedBrowser({
   items,
 }: RecentlyAddedBrowserProps) {
   const [category, setCategory] = useState<CategoryFilter>("All");
-  const sortedItems = useMemo(() => getRecentlyAddedItems(items), [items]);
-  const visibleItems = useMemo(
+  const activityItems = useMemo(() => {
+    const archiveItemById = new Map(items.map((item) => [item.id, item]));
+
+    return recentArchiveChanges
+      .map((change) => {
+        const item = archiveItemById.get(change.entryId);
+
+        return item ? { change, item } : null;
+      })
+      .filter((change): change is NonNullable<typeof change> =>
+        Boolean(change)
+      );
+  }, [items]);
+  const visibleActivities = useMemo(
     () =>
       category === "All"
-        ? sortedItems
-        : sortedItems.filter((item) => item.category === category),
-    [category, sortedItems]
+        ? activityItems
+        : activityItems.filter(({ item }) => item.category === category),
+    [activityItems, category]
   );
 
   return (
@@ -50,24 +62,23 @@ export default function RecentlyAddedBrowser({
         <Breadcrumb
           items={[
             { label: "Home", href: "/" },
-            { label: "Recently Added" },
+            { label: "Recent Changes" },
           ]}
         />
 
         <header className="mt-10 max-w-3xl">
           <p className="text-xs font-medium uppercase tracking-[0.35em] text-gray-500">
-            Archive Activity
+            ARCHIVE ACTIVITY
           </p>
           <h1 className="mt-4 break-words text-4xl font-bold tracking-tight sm:text-6xl md:text-7xl lg:text-6xl">
-            Recently Added
+            Recent Archive Changes
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-gray-400 sm:text-lg">
-            Every archive entry in the order it joined the collection, newest
-            first.
+            Recent status changes, additions, and updates across the archive.
           </p>
         </header>
 
-        <section className="mt-8 sm:mt-10" aria-label="Recently added filters">
+        <section className="mt-8 sm:mt-10" aria-label="Recent changes filters">
           <div className="flex flex-wrap gap-2">
             {categoryFilters.map((filter) => {
               const isActive = category === filter.value;
@@ -90,72 +101,70 @@ export default function RecentlyAddedBrowser({
             })}
           </div>
           <p className="mt-4 text-sm text-gray-500" aria-live="polite">
-            Showing {visibleItems.length} of {items.length} entries
+            Showing {visibleActivities.length} of {activityItems.length} changes
           </p>
         </section>
 
         <section
           className="mt-8 grid grid-cols-2 gap-2.5 sm:mt-10 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 lg:gap-4 xl:grid-cols-5"
-          aria-label="Recently added archive entries"
+          aria-label="Recent archive changes"
         >
-          {visibleItems.map((item, index) => (
-            <Link
-              key={item.id}
-              href={getArchiveItemHref(item)}
-              scroll={true}
-              aria-label={`View details for ${item.title}`}
-              className="group h-full overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] transition-all duration-300 hover:-translate-y-1 hover:border-white/25 hover:bg-white/[0.06] lg:rounded-3xl"
-            >
-              <article className="flex h-full flex-col">
-                <ArchiveCover
-                  image={item.image}
-                  title={item.title}
-                  priority={index === 0}
-                />
-                <div className="flex flex-1 flex-col p-3 lg:p-4">
-                  <p className="line-clamp-1 text-[0.58rem] font-medium uppercase tracking-[0.14em] text-gray-500 lg:text-[0.65rem] lg:tracking-[0.2em]">
-                    {item.category}
-                  </p>
-                  <div className="mt-1 flex items-center justify-between gap-2 text-[0.56rem] font-medium uppercase tracking-[0.1em] text-gray-400 lg:mt-2 lg:gap-3 lg:text-[0.65rem] lg:tracking-[0.14em]">
-                    <span className="min-w-0 line-clamp-1">{item.status}</span>
-                    <ArchiveRating
-                      rating={item.rating}
-                      className="hidden shrink-0 text-white lg:inline"
-                    />
+          {visibleActivities.map(({ change, item }, index) => {
+            const activityVerb = getArchiveActivityVerb(item.category);
+            const activityLabel =
+              change.type === "added"
+                ? `Added to archive - ${change.toStatus}`
+                : `${change.fromStatus} -> ${change.toStatus}`;
+
+            return (
+              <Link
+                key={change.id}
+                href={getArchiveItemHref(item)}
+                scroll={true}
+                aria-label={`View details for ${item.title}`}
+                className="group h-full overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] transition-all duration-300 hover:-translate-y-1 hover:border-white/25 hover:bg-white/[0.06] lg:rounded-3xl"
+              >
+                <article className="flex h-full flex-col">
+                  <ArchiveCover
+                    image={item.image}
+                    title={item.title}
+                    priority={index === 0}
+                  />
+                  <div className="flex flex-1 flex-col p-3 lg:p-4">
+                    <div className="flex items-center justify-between gap-2 text-[0.56rem] uppercase tracking-[0.1em] text-gray-500 lg:gap-3 lg:text-[0.65rem] lg:tracking-[0.18em]">
+                      <span>{item.category}</span>
+                      <ArchiveRating
+                        rating={item.rating}
+                        className="shrink-0 text-white"
+                      />
+                    </div>
+                    <h2 className="mt-2 line-clamp-2 min-h-10 overflow-hidden text-ellipsis text-sm font-semibold leading-5 tracking-tight lg:mt-3 lg:min-h-12 lg:text-lg lg:leading-normal">
+                      {item.title}
+                    </h2>
+                    <p className="mt-2 text-[0.65rem] font-medium uppercase tracking-[0.14em] text-gray-400 lg:text-xs">
+                      {activityLabel}
+                    </p>
+                    <p className="mt-2 text-[0.65rem] text-gray-500 lg:text-xs">
+                      Updated {formatArchiveChangedDate(change.changedAt)}
+                    </p>
+                    <p className="mt-1 hidden text-xs text-gray-600 lg:block">
+                      Now {activityVerb}
+                    </p>
+                    <span className="mt-auto flex items-center gap-2 pt-3 text-[0.6rem] font-medium uppercase tracking-[0.14em] text-gray-500 transition-colors duration-300 group-hover:text-white lg:pt-5 lg:text-xs lg:tracking-[0.16em]">
+                      View Details <span aria-hidden="true">-&gt;</span>
+                    </span>
                   </div>
-                  <h2 className="mt-2 line-clamp-2 min-h-10 overflow-hidden text-ellipsis text-sm font-semibold leading-5 tracking-tight lg:mt-3 lg:min-h-12 lg:text-lg lg:leading-normal">
-                    {item.title}
-                  </h2>
-                  <div className="mt-2 hidden h-7 flex-wrap gap-1.5 overflow-hidden lg:mt-3 lg:flex">
-                    {item.genres.slice(0, 3).map((genre) => (
-                      <span
-                        key={genre}
-                        className="rounded-full border border-white/10 px-2.5 py-1 text-[0.7rem] text-gray-300"
-                      >
-                        {genre}
-                      </span>
-                    ))}
-                  </div>
-                  <p className="mt-3 line-clamp-2 min-h-12 overflow-hidden text-ellipsis text-sm leading-6 text-gray-400 lg:mt-4 lg:line-clamp-3 lg:min-h-[4.5rem]">
-                    {getArchiveCardDescription(item)}
-                  </p>
-                  <p className="mt-3 hidden text-xs text-gray-500 lg:block">
-                    Added {formatArchiveAddedDate(item)}
-                  </p>
-                  <span className="mt-auto hidden items-center gap-2 pt-3 text-xs font-medium uppercase tracking-[0.16em] text-gray-500 transition-colors duration-300 group-hover:text-white lg:flex lg:pt-5">
-                    View Details <span aria-hidden="true">-&gt;</span>
-                  </span>
-                </div>
-              </article>
-            </Link>
-          ))}
+                </article>
+              </Link>
+            );
+          })}
         </section>
 
-        {visibleItems.length === 0 && (
+        {visibleActivities.length === 0 && (
           <div className="mt-10 rounded-3xl border border-dashed border-white/15 px-6 py-20 text-center">
-            <p className="text-lg font-medium">No recently added entries found</p>
+            <p className="text-lg font-medium">No recent changes found</p>
             <p className="mt-2 text-sm text-gray-500">
-              Choose another category to see more of the archive.
+              Choose another category to see more archive activity.
             </p>
           </div>
         )}

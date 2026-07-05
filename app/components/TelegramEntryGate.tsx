@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import BioluminescentTree from "./BioluminescentTree";
 import styles from "./TelegramEntryGate.module.css";
 
 const EXIT_DURATION_MS = 650;
@@ -45,9 +46,10 @@ export default function TelegramEntryGate() {
       }`}
       onClick={enterProfile}
     >
+      <BioluminescentTree />
       <span
         aria-hidden="true"
-        className="absolute inset-0 bg-black/60 backdrop-blur-md"
+        className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(127,29,29,0.16),transparent_42%),linear-gradient(to_bottom,rgba(0,0,0,0.42),rgba(0,0,0,0.78))] backdrop-blur-[2px]"
       />
       <span className={styles.particles} aria-hidden="true">
         {PARTICLES.map((particle, index) => (

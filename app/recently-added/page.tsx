@@ -3,8 +3,8 @@ import RecentlyAddedBrowser from "../components/RecentlyAddedBrowser";
 import { getAllEntries } from "../lib/archiveRepository";
 
 export const metadata: Metadata = {
-  title: "Recently Added | The Archive",
-  description: "Browse every archive entry in the order it was added.",
+  title: "Recent Archive Changes | The Archive",
+  description: "Recent status changes, additions, and updates across the archive.",
 };
 
 export default function RecentlyAddedPage() {

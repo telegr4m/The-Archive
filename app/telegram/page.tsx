@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { readdirSync } from "node:fs";
 import { join } from "node:path";
 import Link from "next/link";
-import TelegramEntryGate from "../components/TelegramEntryGate";
 import TelegramFloatingCards, {
   type TelegramFavoriteWork,
 } from "../components/TelegramFloatingCards";
@@ -10,6 +9,7 @@ import TelegramMusicPlayer, {
   type TelegramSong,
 } from "../components/TelegramMusicPlayer";
 import TelegramProfileImage from "../components/TelegramProfileImage";
+import TelegramProfileExperience from "../components/TelegramProfileExperience";
 import { profileGames } from "../data/profileGames";
 
 export const metadata: Metadata = {
@@ -64,72 +64,58 @@ export default function TelegramProfilePage() {
 
   return (
     <main className="relative h-[100svh] overflow-y-auto bg-black text-white">
-      <video
-        className="fixed inset-0 h-full w-full object-cover object-[center_65%]"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        aria-hidden="true"
-      >
-        <source src="/videos/telegram-profile-bg.mp4" type="video/mp4" />
-      </video>
-
-      <div className="fixed inset-0 bg-black/70" aria-hidden="true" />
-      <div
-        className="fixed inset-0 bg-[radial-gradient(circle_at_78%_18%,rgba(127,29,29,0.16),transparent_38%),linear-gradient(to_bottom,rgba(0,0,0,0.16),rgba(0,0,0,0.78))]"
-        aria-hidden="true"
-      />
-      <TelegramEntryGate />
-
-      <div className="relative z-10 min-h-full w-full px-5 pb-6 pt-20 sm:px-8 sm:pb-8 lg:px-10 lg:pb-5 lg:pt-16 xl:px-12">
-        <header className="flex max-w-2xl items-center gap-5 sm:gap-6">
-          <div className="w-28 shrink-0 sm:w-36">
-            <TelegramProfileImage />
-          </div>
-          <div className="min-w-0 flex-1">
-            <p className="text-[0.6rem] font-medium uppercase tracking-[0.32em] text-[#963636]">
-              Personal Profile
-            </p>
-            <h1 className="mt-1 bg-gradient-to-b from-white via-zinc-100 to-zinc-400 bg-clip-text pb-1 text-4xl font-bold leading-[1.18] tracking-tight text-transparent [text-shadow:0_1px_12px_rgba(255,255,255,0.08)] sm:text-5xl">
-              telegram
-            </h1>
-            <div className="mt-2 min-h-5 max-w-md" data-profile-copy-slot />
-            <div className="mt-2 flex items-center gap-2" aria-label="Social links">
-              {socialLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={link.label}
-                  title={link.label}
-                  className="group inline-flex size-10 items-center justify-center rounded-full border border-red-900/45 bg-black/35 text-gray-500 transition-all duration-300 hover:-translate-y-0.5 hover:border-red-500/45 hover:bg-red-950/20 hover:text-red-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300/60 sm:size-8"
-                >
-                  <TelegramSocialIcon label={link.label} />
-                </a>
-              ))}
+      <TelegramProfileExperience>
+        <div className="min-h-full w-full px-5 pb-6 pt-20 sm:px-8 sm:pb-8 lg:px-10 lg:pb-5 lg:pt-16 xl:px-12">
+          <header className="flex max-w-2xl items-center gap-5 sm:gap-6">
+            <div className="w-28 shrink-0 sm:w-36">
+              <TelegramProfileImage />
             </div>
-            <Link
-              href="/"
-              scroll={true}
-              className="mt-2 inline-flex min-h-10 w-fit items-center rounded-full border border-white/15 bg-black/30 px-3.5 text-[0.6rem] font-medium uppercase tracking-[0.16em] text-gray-300 transition-colors duration-300 hover:border-red-300/45 hover:text-red-200 sm:min-h-9"
-            >
-              Return to The Archive
-            </Link>
+            <div className="min-w-0 flex-1">
+              <p className="text-[0.6rem] font-medium uppercase tracking-[0.32em] text-[#963636]">
+                Personal Profile
+              </p>
+              <h1 className="mt-1 bg-gradient-to-b from-white via-zinc-100 to-zinc-400 bg-clip-text pb-1 text-4xl font-bold leading-[1.18] tracking-tight text-transparent [text-shadow:0_1px_12px_rgba(255,255,255,0.08)] sm:text-5xl">
+                telegram
+              </h1>
+              <div className="mt-2 min-h-5 max-w-md" data-profile-copy-slot />
+              <div
+                className="mt-2 flex items-center gap-2"
+                aria-label="Social links"
+              >
+                {socialLinks.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={link.label}
+                    title={link.label}
+                    className="group inline-flex size-10 items-center justify-center rounded-full border border-red-900/45 bg-black/35 text-gray-500 transition-all duration-300 hover:-translate-y-0.5 hover:border-red-500/45 hover:bg-red-950/20 hover:text-red-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300/60 sm:size-8"
+                  >
+                    <TelegramSocialIcon label={link.label} />
+                  </a>
+                ))}
+              </div>
+              <Link
+                href="/"
+                scroll={true}
+                className="mt-2 inline-flex min-h-10 w-fit items-center rounded-full border border-white/15 bg-black/30 px-3.5 text-[0.6rem] font-medium uppercase tracking-[0.16em] text-gray-300 transition-colors duration-300 hover:border-red-300/45 hover:text-red-200 sm:min-h-9"
+              >
+                Return to The Archive
+              </Link>
+            </div>
+          </header>
+
+          <div className="mt-4 flex justify-center lg:fixed lg:right-10 lg:top-14 lg:z-20 lg:mt-0 lg:justify-end xl:right-12">
+            <TelegramMusicPlayer
+              songs={telegramSongs}
+              artworkPaths={artworkPaths}
+            />
           </div>
-        </header>
 
-        <div className="mt-4 flex justify-center lg:fixed lg:right-10 lg:top-14 lg:z-20 lg:mt-0 lg:justify-end xl:right-12">
-          <TelegramMusicPlayer
-            songs={telegramSongs}
-            artworkPaths={artworkPaths}
-          />
+          <TelegramFloatingCards favorites={favoriteWorks} games={profileGames} />
         </div>
-
-        <TelegramFloatingCards favorites={favoriteWorks} games={profileGames} />
-      </div>
+      </TelegramProfileExperience>
     </main>
   );
 }
