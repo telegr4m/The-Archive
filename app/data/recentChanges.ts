@@ -11,6 +11,20 @@ export type RecentArchiveChange = {
 
 export const recentArchiveChanges: RecentArchiveChange[] = [
   {
+    id: "anime-classroom-of-the-elite-added",
+    entryId: "anime-classroom-of-the-elite",
+    type: "added",
+    toStatus: "Completed",
+    changedAt: "2026-07-06",
+  },
+  {
+    id: "manga-goodnight-punpun-added",
+    entryId: "manga-goodnight-punpun",
+    type: "added",
+    toStatus: "Completed",
+    changedAt: "2026-07-06",
+  },
+  {
     id: "manhwa-reality-quest-added",
     entryId: "manhwa-reality-quest",
     type: "added",

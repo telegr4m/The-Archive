@@ -5455,24 +5455,24 @@ export const archiveItems: ArchiveItem[] = [
     "rating": 0,
     "image": "/images/manhwa/reality-quest.jpg",
     "genres": [
-    "Action",
-    "Long Strip",
-    "Drama",
-    "School Life",
-    "Fantasy",
-    "Delinquents",
-    "Full Color"
-  ],
+      "Action",
+      "Long Strip",
+      "Drama",
+      "School Life",
+      "Fantasy",
+      "Delinquents",
+      "Full Color"
+    ],
     "description": "Ha Do-wan is a bullied gamer, whose bullies force him to grind to obtain in-game items for them. After one such bully demands that Dowan obtain an impossibly rare item for him or be beaten in front of the prettiest girl in school, Dowan games day and night for a week until he drops dead from exhaustion. However, as soon as he dies, he respawns back in his classroom one week before his death. Everything is the same as it was before, except now he has all the skills he’s acquired from the games he’s played in real life! Will Dowan be able to use his newfound abilities and gamified existence to defeat his bullies?",
     "featured": false,
     "favorite": false,
     "importSource": "manhwa-import.csv",
     "createdAt": "2026-07-05",
     "favoriteCharacter": "Dowan Ha",
-    sourceStatus: "Ongoing",
-    creator: "Lee Joo-woon, Taeseong",
-    formatLabel: "Manhwa",
-    releaseYear: 2021
+    "sourceStatus": "Ongoing",
+    "creator": "Lee Joo-woon, Taeseong",
+    "formatLabel": "Manhwa",
+    "releaseYear": 2021
   },
   {
     "id": "web-novel-sword-god-in-a-world-of-magic",
@@ -5498,6 +5498,54 @@ export const archiveItems: ArchiveItem[] = [
     "favoriteCharacter": "Shang",
     "releaseYear": 2021,
     "metadataStatus": "partial"
+  },
+  {
+    "id": "anime-classroom-of-the-elite",
+    "slug": "classroom-of-the-elite",
+    "title": "Classroom of the Elite",
+    "category": "Anime",
+    "status": "Completed",
+    "rating": 0,
+    "image": "/images/anime/classroom-of-the-elite.jpg",
+    "genres": [
+      "Drama",
+      "Psychological"
+    ],
+    "description": "Koudo Ikusei Senior High School is a leading school with state-of-the-art facilities. The students there have the freedom to wear any hairstyle and bring any personal effects they desire. Koudo Ikusei is like a utopia, but the truth is that only the most superior students receive favorable treatment. Kiyotaka Ayanokouji is a student of D-class, which is where the school dumps its \"inferior\" students in order to ridicule them. For a certain reason, Kiyotaka was careless on his entrance examination, and was put in D-class. After meeting Suzune Horikita and Kikyou Kushida, two other students in his class, Kiyotaka's situation begins to change. (Source: Anime News Network, edited)",
+    "featured": false,
+    "favorite": false,
+    "importSource": "anime-import.csv",
+    "createdAt": "2026-07-06",
+    "favoriteCharacter": "Kiyotaka Ayanokoji",
+    "sourceStatus": "Finished",
+    "studio": "Lerche",
+    "creator": "Shougo Kinugasa",
+    "formatLabel": "Tv",
+    "releaseYear": 2017
+  },
+  {
+    "id": "manga-goodnight-punpun",
+    "slug": "goodnight-punpun",
+    "title": "Goodnight Punpun",
+    "category": "Manga",
+    "status": "Completed",
+    "rating": 0,
+    "image": "/images/manga/goodnight-punpun-vol-7.jpg",
+    "genres": [
+    "Drama",
+    "Psychological",
+    "Slice of Life"
+  ],
+    "description": "Meet Punpun Punyama. He’s an average kid in an average town. He wants to win a Nobel Prize and save the world. He wants the girl he has a crush on to like him back. He wants to find some porn. That’s what he wants, but what does he get…? (Source: VIZ Media)",
+    "featured": false,
+    "favorite": false,
+    "importSource": "manga-import.csv",
+    "createdAt": "2026-07-06",
+    "favoriteCharacter": "Punpun Onodera",
+    sourceStatus: "Finished",
+    creator: "Inio Asano",
+    formatLabel: "Manga",
+    releaseYear: 2007
   }
 ];
 

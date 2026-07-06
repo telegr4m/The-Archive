@@ -6,29 +6,39 @@ import { getAllEntries } from "../lib/archiveRepository";
 
 type RandomStoryButtonProps = {
   className?: string;
+  currentItemId?: string;
+  label?: string;
   showIcon?: boolean;
 };
 
 export default function RandomStoryButton({
   className = "",
+  currentItemId,
+  label = "Random Entry",
   showIcon = false,
 }: RandomStoryButtonProps) {
   const router = useRouter();
 
   function openRandomStory() {
     const archiveItems = getAllEntries();
+    const randomPool =
+      archiveItems.length > 1 && currentItemId
+        ? archiveItems.filter((item) => item.id !== currentItemId)
+        : archiveItems;
     const randomItem =
-      archiveItems[Math.floor(Math.random() * archiveItems.length)];
+      randomPool[Math.floor(Math.random() * randomPool.length)];
 
     if (randomItem) {
-      router.push(getArchiveItemHref(randomItem), { scroll: true });
+      router.push(`${getArchiveItemHref(randomItem)}?from=random`, {
+        scroll: true,
+      });
     }
   }
 
   return (
     <button type="button" className={className} onClick={openRandomStory}>
       {showIcon && <ShuffleIcon />}
-      Random Entry
+      {label}
     </button>
   );
 }

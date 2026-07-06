@@ -1,12 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { archiveCategoryPaths } from "../lib/archiveRoutes";
 import type { ArchiveItem } from "../lib/archiveTypes";
 import ArchiveRating from "./ArchiveRating";
 import Breadcrumb from "./Breadcrumb";
+import RandomStoryButton from "./RandomStoryButton";
 import RelatedStories from "./RelatedStories";
 import { getArchiveDetailDescription } from "../data/archivePresentation";
 
@@ -191,6 +193,10 @@ export default function StoryDetail({ item }: StoryDetailProps) {
               )}
             </div>
 
+            <Suspense fallback={null}>
+              <RandomEntryContinuation currentItemId={item.id} />
+            </Suspense>
+
             <p className="mt-8 max-w-3xl text-lg leading-8 text-gray-300 lg:mt-6 lg:text-base lg:leading-7">
               {getArchiveDetailDescription(item)}
             </p>
@@ -228,6 +234,23 @@ export default function StoryDetail({ item }: StoryDetailProps) {
         <RelatedStories item={item} />
       </div>
     </main>
+  );
+}
+
+function RandomEntryContinuation({ currentItemId }: { currentItemId: string }) {
+  const searchParams = useSearchParams();
+
+  if (searchParams.get("from") !== "random") return null;
+
+  return (
+    <div className="mt-6 flex">
+      <RandomStoryButton
+        currentItemId={currentItemId}
+        label="Find Another Random Entry"
+        showIcon
+        className="group inline-flex min-h-12 w-full items-center justify-center gap-2.5 rounded-full border border-white/15 bg-white/[0.03] px-5 py-3 text-center text-sm font-medium text-gray-200 transition-all duration-300 hover:-translate-y-0.5 hover:border-white/35 hover:bg-white/[0.07] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 sm:min-h-11 sm:w-fit sm:py-2.5"
+      />
+    </div>
   );
 }
 
